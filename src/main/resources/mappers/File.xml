@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pms.dao.FileMapper">
+    <insert id="insert" parameterType="com.pms.entity.File"
+            useGeneratedKeys="true" keyProperty="file_id">
+        <selectKey keyProperty="file_id" resultType="java.lang.Integer"
+                   order="AFTER">
+            SELECT
+            LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO
+        file(file_id,file_type,file_url,file_is_valid,file_paperproxy_id,file_paper_id)
+        VALUES(#{file_id},#{file_type},#{file_url},#{file_isValid},#{file_paperproxy_id},#{file_paper_id});
+    </insert>
+    <update id="update" parameterType="com.pms.entity.File">
+        UPDATE file
+        SET
+        file_url=#{file_url},file_paper_id=#{file_paper_id},file_is_valid=#{file_isValid}
+        WHERE
+        file_id=#{file_id}
+    </update>
+    <select id="findByPaperproxyId" resultMap="pms.entity.EntityMapper.FileBean"
+            parameterType="java.lang.Integer">
+        SELECT *
+        FROM file
+        WHERE
+        file_paperproxy_id=#{file_paperproxy_id} AND file_is_valid=1;
+    </select>
+    <select id="selectByPaperproxyIdAndFileType" resultMap="pms.entity.EntityMapper.FileBean"
+            parameterType="java.util.Map">
+        SELECT *
+        FROM file
+        WHERE
+        file_paperproxy_id=#{paperproxyId} AND file_type=#{fileType} AND file_is_valid=1;
+    </select>
+    <select id="selectByPaperIdAndFileType" resultMap="pms.entity.EntityMapper.FileBean"
+            parameterType="java.util.Map">
+        SELECT *
+        FROM file
+        WHERE
+        file_paper_id=#{paperId} AND file_type=#{fileType};
+    </select>
+</mapper>
