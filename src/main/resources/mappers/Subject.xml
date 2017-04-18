@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pms.dao.SubjectMapper">
+
+
+    <select id="getAllSubject" resultMap="pms.entity.EntityMapper.SubjectBean">
+        select *from subject
+    </select>
+     <select id="findSubjectByName" parameterType="String" resultMap="pms.entity.EntityMapper.SubjectBean">
+       select *from subject where subject_name=#{subject_name}
+    </select>
+    <insert id="insertSubject" parameterType="com.pms.entity.Subject"
+			useGeneratedKeys="true" keyProperty="subject_id">
+		<selectKey keyProperty="subject_id" resultType="java.lang.Integer"
+				   order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		subject(subject_name,subject_info)
+		VALUES(#{subject_name},#{subject_info});
+	</insert>
+		<update id="updateSubject" parameterType="com.pms.entity.Subject">
+		update subject set subject_name=#{subject_name},subject_info = #{subject_info}
+		where
+		subject_id=#{subject_id}
+	</update>
+	<delete id="deleteSubject" parameterType="int">
+		delete from
+		subject where subject_id=#{subject_id}
+	</delete>
+
+</mapper>

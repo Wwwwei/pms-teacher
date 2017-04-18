@@ -71,8 +71,25 @@ $(function() {
 			<span> 个人信息 </span>
 		</blockquote>
 		<dl class="dl-horizontal text-overflow">
+			<dt>性别</dt>
+			<c:if test="${sessionScope.teacher.teacher_sex==0}">
+			<dd>女</dd>
+			</c:if>
+			<c:if test="${sessionScope.teacher.teacher_sex==1}">
+			<dd>男</dd>
+			</c:if>
+		</dl>
+		<dl class="dl-horizontal text-overflow">
+			<dt>生日</dt>
+			<dd>${sessionScope.teacher.teacher_birth }</dd>
+		</dl>
+		<dl class="dl-horizontal text-overflow">
 			<dt>教师工号</dt>
 			<dd>${sessionScope.teacher.teacher_no }</dd>
+		</dl>
+		<dl class="dl-horizontal text-overflow">
+			<dt>财务工号</dt>
+			<dd>${sessionScope.teacher.teacher_finance_no }</dd>
 		</dl>
 		<dl class="dl-horizontal text-overflow">
 			<dt>身份证号</dt>
@@ -85,6 +102,26 @@ $(function() {
 		<dl class="dl-horizontal text-overflow">
 			<dt>毕业院校</dt>
 			<dd>${sessionScope.teacher.teacher_graUniversity }</dd>
+		</dl>
+		<dl class="dl-horizontal text-overflow">
+			<dt>教学科目</dt>
+			<dd>${sessionScope.teacher.teacher_subject }</dd>
+		</dl>
+		<dl class="dl-horizontal text-overflow">
+			<dt>研究方向</dt>
+			<dd>${sessionScope.teacher.teacher_subject_study}</dd>
+		</dl>
+		<dl class="dl-horizontal text-overflow">
+			<dt>研究所</dt>
+			<dd>${sessionScope.teacher.teacher_institute.institute_name}</dd>
+		</dl>
+		<dl class="dl-horizontal text-overflow">
+			<dt>教学专业</dt>
+			<dd>${sessionScope.teacher.teacher_teachingProfession.teachingProfession_name}</dd>
+		</dl>
+		<dl class="dl-horizontal text-overflow">
+			<dt>所属学科</dt>
+			<dd>${sessionScope.teacher.teacher_belong_subject.subject_name}</dd>
 		</dl>
 		<blockquote>
 			<span> 联系方式 </span>

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pms.common.enums.PaperPublishTypeEnum;
 import com.pms.util.CryptoUtil;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,6 +48,9 @@ public class AdminHandler {
 
     @Resource(name = "teachingProfessionServiceImpl")
     private TeachingProfessionService teachingProfessionService;
+    
+    @Resource(name = "subjectServiceImpl")
+    private SubjectService subjectService;
 
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public String login(Admin admin, HttpSession session, HttpServletRequest request) {
@@ -575,9 +577,10 @@ public class AdminHandler {
             return "redirect:/loginAdmin.jsp";
         List<Institute> institutes = instituteService.getAllInstitute();
         List<TeachingProfession> teachingProfession = teachingProfessionService.getAllTeachingProfession();
-        System.out.print(teachingProfession.get(0).getTeachingProfession_name() + "---");
+        List<Subject>subject=subjectService.getAllSubject();
         request.setAttribute("institutes", institutes);
         request.setAttribute("teachingProfession", teachingProfession);
+        request.setAttribute("subject", subject);
         return "admin/insertOneTeacher";
     }
 
@@ -617,14 +620,15 @@ public class AdminHandler {
         if (session.getAttribute("admin") == null)
             return "redirect:/loginAdmin.jsp";
         Teacher teacher = teacherService.findTeacher(find_string);
-        System.out.print(teacher.getTeacher_institute().getInstitute_name());
         List<Institute> institutes = instituteService.getAllInstitute();
         List<TeachingProfession> teachingProfession = teachingProfessionService.getAllTeachingProfession();
+        List<Subject> subject = subjectService.getAllSubject();
         request.setAttribute("teachingProfession", teachingProfession);
         request.setAttribute("institutes", institutes);
         request.setAttribute("find_string", find_string);
         request.setAttribute("isFindTeacher", true);
         request.setAttribute("teacher", teacher);
+        request.setAttribute("subject", subject);
         return "admin/updateTeacherInfo";
     }
 
@@ -632,16 +636,17 @@ public class AdminHandler {
     public String updateTeacher(Teacher teacher, HttpSession session, HttpServletRequest request) {
         if (session.getAttribute("admin") == null)
             return "redirect:/loginAdmin.jsp";
-        System.out.println(teacher.getTeacher_no() + "]]]]]]");
         if (teacherService.updateTeacher(teacher)) {
             teacher = teacherService.findTeacher(teacher.getTeacher_no());
             List<Institute> institutes = instituteService.getAllInstitute();
             List<TeachingProfession> teachingProfession = teachingProfessionService.getAllTeachingProfession();
+            List<Subject> subject = subjectService.getAllSubject();
             request.setAttribute("teachingProfession", teachingProfession);
             request.setAttribute("teacher", teacher);
             request.setAttribute("find_string", teacher.getTeacher_no());
             request.setAttribute("isFindTeacher", true);
             request.setAttribute("institutes", institutes);
+            request.setAttribute("subject", subject);
             request.setAttribute("updateTeacherResult", "修改教师信息成功！");
         } else {
             request.setAttribute("updateTeacherResult", "修改教师信息失败，请重新尝试！");
@@ -674,5 +679,108 @@ public class AdminHandler {
             result = "true";
         return result;
     }
+    @RequestMapping(value = "/admin/findInstitute", method = RequestMethod.GET)
+	public String findInstitute(HttpSession session,HttpServletRequest request){
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		List<Institute> institutes = instituteService.getAllInstitute();
+		request.setAttribute("institutes", institutes);
+		request.setAttribute("type", "institute");
+		return "admin/infoConfig";
+	}
+    @RequestMapping(value = "/admin/addMessagePage", method = RequestMethod.GET)
+	public String addMessage(@RequestParam("type") String type,
+			                 HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+    	request.setAttribute("type", type);
+    	return "admin/insertMessage";
+	}
+	@RequestMapping(value = "/admin/insertInstitute", method = RequestMethod.POST)
+	public String addMessage(Institute institute,
+			HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";	
+			instituteService.insertInstitute(institute);
+		 return "redirect:/admin/findInstitute.do";
+	}
+	
+	@RequestMapping(value = "/admin/updateInstitute", method = RequestMethod.POST)
+	public String updateInstitute(Institute institute,HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		instituteService.updateInstitute(institute);
+		 return "redirect:/admin/findInstitute.do";
+	}
+	@RequestMapping(value = "/admin/deleteInstitute", method = RequestMethod.GET)
+	public String deleteInstitute(@RequestParam("institute_id") int institute_id,
+			HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		instituteService.deleteInstitute(institute_id);
+		 return "redirect:/admin/findInstitute.do";
+	}
+	@RequestMapping(value = "/admin/findProfession", method = RequestMethod.GET)
+	public String findProfession(HttpSession session,HttpServletRequest request){
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		  List<TeachingProfession> teachingProfession = teachingProfessionService.getAllTeachingProfession();
+		request.setAttribute("teachingProfession", teachingProfession);
+		request.setAttribute("type", "profession");
+		return "admin/infoConfig";
+	}
+	@RequestMapping(value = "/admin/insertProfession", method = RequestMethod.POST)
+	public String addMessage(TeachingProfession teachingProfession,
+			HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";	
+		teachingProfessionService.insertProfession(teachingProfession);
+		 return "redirect:/admin/findProfession.do";
+	}
+	@RequestMapping(value = "/admin/updateProfession", method = RequestMethod.POST)
+	public String updateProfession(TeachingProfession teachingProfession,HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		teachingProfessionService.updateProfession(teachingProfession);
+		 return "redirect:/admin/findProfession.do";
+	}
+	@RequestMapping(value = "/admin/deleteProfession", method = RequestMethod.GET)
+	public String deleteProfession(@RequestParam("teachingProfession_id") int teachingProfession_id,
+			HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		teachingProfessionService.deleteProfession(teachingProfession_id);
+		 return "redirect:/admin/findProfession.do";
+	}
+	@RequestMapping(value = "/admin/findSubject", method = RequestMethod.GET)
+	public String findSubject(HttpSession session,HttpServletRequest request){
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		  List<Subject> subject = subjectService.getAllSubject();
+		request.setAttribute("subject", subject);
+		request.setAttribute("type", "subject");
+		return "admin/infoConfig";
+	}
+	@RequestMapping(value = "/admin/insertSubject", method = RequestMethod.POST)
+	public String addMessage(Subject subject,
+			HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";	
+		subjectService.insertSubject(subject);
+		 return "redirect:/admin/findSubject.do";
+	}
+	@RequestMapping(value = "/admin/updateSubject", method = RequestMethod.POST)
+	public String updateSubject(Subject subject,HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		 subjectService.updateSubject(subject);
+		 return "redirect:/admin/findSubject.do";
+	}
+	@RequestMapping(value = "/admin/deleteSubject", method = RequestMethod.GET)
+	public String deleteSubject(@RequestParam("subject_id") int subject_id,
+			HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		subjectService.deleteSubject(subject_id);
+		 return "redirect:/admin/findSubject.do";
+	}
 
 }

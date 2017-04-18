@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pms.dao.PaperMapper;
 import com.pms.dao.TeacherMapper;
 import com.pms.service.InstituteService;
+import com.pms.service.SubjectService;
 import com.pms.service.TeachingProfessionService;
 import com.pms.util.CryptoUtil;
 
@@ -33,6 +34,9 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Resource(name = "teachingProfessionServiceImpl")
 	private TeachingProfessionService teachingProfessionService;
+	
+	@Resource(name = "subjectServiceImpl")
+	private SubjectService subjectService;
 
 	@Override
 	public Map<String, String> findTeacherPassword(String teacher_no) {
@@ -105,6 +109,7 @@ public class TeacherServiceImpl implements TeacherService {
 				for (int j = 0; j < clos; j++) {
 					// 第一个是列数，第二个是行数
 					String teacher_no = rs.getCell(j++, i).getContents();// 默认最左边编号也算一列,所以这里得j++
+					String teacher_finance_no = rs.getCell(j++, i).getContents();
 					String teacher_name = rs.getCell(j++, i).getContents();
 					String teacher_sex_str = rs.getCell(j++, i).getContents();
 					String teacher_email = rs.getCell(j++, i).getContents();
@@ -120,7 +125,7 @@ public class TeacherServiceImpl implements TeacherService {
 					String teacher_info = rs.getCell(j++, i).getContents();
 					String teacher_info_url = rs.getCell(j++, i).getContents();
 					String teacher_google_scolar_url = rs.getCell(j++, i).getContents();
-					String teacher_university = rs.getCell(j++, i).getContents();
+					String teacher_belong_subject_name = rs.getCell(j++, i).getContents();
 					String teacher_subject = rs.getCell(j++, i).getContents();
 					String teacher_subject_study = rs.getCell(j++, i).getContents();
 					String teacher_institute_name = rs.getCell(j++, i).getContents();
@@ -132,11 +137,12 @@ public class TeacherServiceImpl implements TeacherService {
 //					teacher_comeTime = DateUtil.changeDateFormat(teacher_comeTime);
 					Institute teacher_institute = instituteService.getInstitue(teacher_institute_name.trim());
 					TeachingProfession teachingProfession=teachingProfessionService.getTeachingProfession(teacher_teachingProfession_name.trim());
-					list.add(new Teacher(teacher_no, teacher_name, null, null, teacher_sex, teacher_email,
+					Subject subject=subjectService.getSubject(teacher_belong_subject_name.trim());
+					list.add(new Teacher(teacher_no, teacher_finance_no,teacher_name, null, null, teacher_sex, teacher_email,
 							teacher_phoneNumber, teacher_officeNumber, teacher_title, teacher_birth,
 							0, teacher_qq, teacher_idCard, teacher_comeTime,
 							teacher_graUniversity, teacher_info,teacher_info_url,teacher_google_scolar_url,
-							teacher_university,teacher_subject,teacher_subject_study,teacher_institute,teachingProfession));
+							subject,teacher_subject,teacher_subject_study,teacher_institute,teachingProfession));
 				}
 			}
 		} catch (Exception e) {

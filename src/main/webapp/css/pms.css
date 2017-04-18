@@ -143,3 +143,18 @@ a:hover {
     padding-left: 0px;
     padding-right: 0px;
 }
+.btn-pri {
+    font-size: 15px;
+    width: 120px;
+    height:41px;
+    border: 1px solid #FFFFFF;
+    background-color: #337ab7;
+    color: #FFFFFF;
+}
+.bnt-button{
+font-size: 15px;
+    width: 60px;
+    border: 1px solid #FFFFFF;
+    background-color: #337ab7;
+    color: #FFFFFF;
+}
