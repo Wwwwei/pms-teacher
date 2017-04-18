@@ -42,5 +42,11 @@ public interface TeacherMapper {
 	public List<String> findAllTeacherNo();
 	
 	public int findTeacherIdByTeacherNo(String teacher_no);
+	
+	public int updateTeacherInstitute(int institute_id);
+	
+	public int updateTeacherProfession(int teachingProfession_id);
+	
+	public int updateTeacherSubject(int subject_id);
 
 }

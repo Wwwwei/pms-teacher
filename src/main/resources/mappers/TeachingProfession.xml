@@ -12,5 +12,26 @@
     <select id="getAllTeachingProfession" resultMap="pms.entity.EntityMapper.TeachingProfessionBean">
         select *from teachingprofession
     </select>
+    
+     <insert id="insertProfession" parameterType="com.pms.entity.TeachingProfession"
+			useGeneratedKeys="true" keyProperty="teachingProfession_id">
+		<selectKey keyProperty="teachingProfession_id" resultType="java.lang.Integer"
+				   order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		teachingprofession(teachingprofession_name,teachingprofession_info)
+		VALUES(#{teachingProfession_name},#{teachingProfession_info});
+	</insert>
+		<update id="updateProfession" parameterType="com.pms.entity.TeachingProfession">
+		update teachingprofession set teachingprofession_name=#{teachingProfession_name},teachingprofession_info = #{teachingProfession_info}
+		where
+		teachingprofession_id=#{teachingProfession_id}
+	</update>
+	<delete id="deleteProfession" parameterType="int">
+		delete from
+		teachingprofession where teachingprofession_id=#{teachingProfession_id}
+	</delete>
 
 </mapper>
