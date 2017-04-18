@@ -3,7 +3,8 @@ package com.pms.entity;
 public class Teacher {
     private int teacher_id;
     private String teacher_no;
-    private String teacher_name;
+    private String teacher_finance_no;
+	private String teacher_name;
     private String teacher_password;
     private String teacher_salt; //随机盐
     private int teacher_sex;   //0代表女的，1代表男的
@@ -20,11 +21,12 @@ public class Teacher {
     private String teacher_info;
     private String teacher_info_url; //个人主页1
     private String teacher_google_scolar_url; //谷歌个人主页2
-    private String teacher_university; //所在院校3
+   // private String teacher_university; //所在院校3
     private String teacher_subject;//4教学科目
     private String teacher_subject_study; //研究方向5
     private Institute teacher_institute;//研究所
     private TeachingProfession teacher_teachingProfession; //教学专业6
+    private Subject teacher_belong_subject;//所属学科
 
     public int getTeacher_id() {
         return teacher_id;
@@ -41,7 +43,13 @@ public class Teacher {
     public void setTeacher_no(String teacher_no) {
         this.teacher_no = teacher_no;
     }
+    public String getTeacher_finance_no() {
+  		return teacher_finance_no;
+  	}
 
+  	public void setTeacher_finance_no(String teacher_finance_no) {
+  		this.teacher_finance_no = teacher_finance_no;
+  	}
     public String getTeacher_name() {
         return teacher_name;
     }
@@ -170,15 +178,15 @@ public class Teacher {
         this.teacher_institute = teacher_institute;
     }
 
-    public String getTeacher_university() {
-        return teacher_university;
-    }
+    public Subject getTeacher_belong_subject() {
+		return teacher_belong_subject;
+	}
 
-    public void setTeacher_university(String teacher_university) {
-        this.teacher_university = teacher_university;
-    }
+	public void setTeacher_belong_subject(Subject teacher_belong_subject) {
+		this.teacher_belong_subject = teacher_belong_subject;
+	}
 
-    public String getTeacher_info_url() {
+	public String getTeacher_info_url() {
         return teacher_info_url;
     }
 
@@ -219,14 +227,15 @@ public class Teacher {
     }
 
 
-    public Teacher(String teacher_no, String teacher_name, String teacher_password, String teacher_salt,
+    public Teacher(String teacher_no, String teacher_finance_no, String teacher_name, String teacher_password, String teacher_salt,
                    int teacher_sex, String teacher_email, String teacher_phoneNumber, String teacher_officeNumber,
                    String teacher_title, String teacher_birth, int teacher_age, String teacher_qq, String teacher_idCard,
                    String teacher_comeTime, String teacher_graUniversity, String teacher_info, String teacher_info_url,
-                   String teacher_google_scolar_url, String teacher_university, String teacher_subject,
+                   String teacher_google_scolar_url, Subject teacher_belong_subject, String teacher_subject,
                    String teacher_subject_study, Institute teacher_institute, TeachingProfession teacher_teachingProfession) {
         super();
         this.teacher_no = teacher_no;
+        this.teacher_finance_no=teacher_finance_no;
         this.teacher_name = teacher_name;
         this.teacher_password = teacher_password;
         this.teacher_salt = teacher_salt;
@@ -244,7 +253,7 @@ public class Teacher {
         this.teacher_info = teacher_info;
         this.teacher_info_url = teacher_info_url;
         this.teacher_google_scolar_url = teacher_google_scolar_url;
-        this.teacher_university = teacher_university;
+        this.teacher_belong_subject = teacher_belong_subject;
         this.teacher_subject = teacher_subject;
         this.teacher_subject_study = teacher_subject_study;
         this.teacher_institute = teacher_institute;

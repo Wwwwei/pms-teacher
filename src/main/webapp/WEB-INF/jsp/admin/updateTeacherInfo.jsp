@@ -60,6 +60,9 @@
 
 		var teacher_teachingProfession_id_value = "${teacher.teacher_teachingProfession.teachingProfession_id}";
 		$("#teacher_teachingProfession").val(teacher_teachingProfession_id_value);
+		
+		var teacher_belong_subject_id_value = "${teacher.teacher_belong_subject.subject_id}";
+		$("#teacher_belong_subject").val(teacher_belong_subject_id_value);
 
 		var teacher_title_value = "${teacher.teacher_title}";
 		$("#teacher_title").val(teacher_title_value);
@@ -88,7 +91,7 @@
 			<form action="admin/findTeacherInfo.do" method="post" class="form-inline">
 				<div class="col-lg-6">
 					<div class="input-group" style="width:100%">
-						<input type="text" name="find_string" value="${find_string}" class="form-control">
+						<input type="text" name="find_string" value="${find_string}" class="form-control" placeholder="请输入教师工号或姓名">
 	      					<span class="input-group-btn">
 	        					<button type="submit" class="btn btn-primary"style="font-size: 22px"><span class="glyphicon glyphicon-search"></span></button>
 	      					</span>
@@ -110,14 +113,17 @@
 					<div class="col-lg-12">&nbsp;</div>
 					<input type="hidden" id="teacher_id" name="teacher_id"
 						   value="${teacher.teacher_id}">
-					<div class="col-lg-2"><label>教师姓名：</label></div>
-					<div class="col-lg-4"><input type="text"
-												 name="teacher_name" value="${teacher.teacher_name}" class="form-control"></div>
 					<div class="col-lg-2"><label>教师工号：</label></div>
 					<div class="col-lg-4"><input type="text" name="teacher_no" id="teacher_no"
 												 value="${teacher.teacher_no}" readonly="readonly"class="form-control"> </div>
+					<div class="col-lg-2"><label>财务工号：</label></div>
+					<div class="col-lg-4"><input type="text" name="teacher_finance_no" id="teacher_finance_no"
+												 value="${teacher.teacher_finance_no}" readonly="readonly"class="form-control"> </div>
 
 					<div class="col-lg-12">&nbsp;</div>
+					<div class="col-lg-2"><label>教师姓名：</label></div>
+					<div class="col-lg-4"><input type="text"
+												 name="teacher_name" value="${teacher.teacher_name}" class="form-control"></div>
 
 					<div class="col-lg-2"><label>教师性别：</label></div>
 					<div class="col-lg-4"><select
@@ -125,80 +131,94 @@
 						<option value="0">女</option>
 						<option value="1">男</option>
 					</select></div>
+					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>教师职称：</label></div>
 					<div class="col-lg-4"><select id="teacher_title" name="teacher_title"
 												  class="form-control">
 						<option value="教授">教授</option>
 						<option value="副教授">副教授</option>
 						<option value="讲师">讲师</option>
-						<option value="">其他</option>
 					</select> </div>
 
-					<div class="col-lg-12">&nbsp;</div>
 
 					<div class="col-lg-2"><label>出生年月：</label></div>
 					<div class="col-lg-4"><input type="date" name="teacher_birth"
 												 value="${teacher.teacher_birth}" min="1900-01-01" max="2019-09-26" class="form-control"/></div>
+					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>教师手机号：</label></div>
 					<div class="col-lg-4"><input type="text" name="teacher_phoneNumber"
 												 id="teacher_phoneNumber" value="${teacher.teacher_phoneNumber}"class="form-control"/></div>
 
-					<div class="col-lg-12">&nbsp;</div>
 
 					<div class="col-lg-2"><label>教师办公电话：</label></div>
 					<div class="col-lg-4"><input type="text" name="teacher_officeNumber"
 												 id="teacher_officeNumber" value="${teacher.teacher_officeNumber}"class="form-control"/></div>
+					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>教师QQ：</label></div>
 					<div class="col-lg-4"><input type="text" name="teacher_qq" id="teacher_qq"
 												 value="${teacher.teacher_qq}" class="form-control"/></div>
 
-					<div class="col-lg-12">&nbsp;</div>
 
 					<div class="col-lg-2"><label>教师身份证：</label></div>
 					<div class="col-lg-4"><input type="text"
 												 name="teacher_idCard" id="teacher_idCard"
 												 value="${teacher.teacher_idCard}" class="form-control"/></div>
+					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>教师邮箱：</label></div>
 					<div class="col-lg-4"><input type="text"
 												 name="teacher_email" value="${teacher.teacher_email}" class="form-control"/></div>
 
-					<div class="col-lg-12">&nbsp;</div>
 
 					<div class="col-lg-2"><label>教师毕业院校：</label></div>
 					<div class="col-lg-4"><input type="text" name="teacher_graUniversity"
 												 value="${teacher.teacher_graUniversity}" class="form-control"/></div>
+					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>来工大时间：</label></div>
 					<div class="col-lg-4"><input
 							type="date" name="teacher_comeTime"
 							value="${teacher.teacher_comeTime}" min="1900-01-01"
 							max="2019-09-26" class="form-control"/></div>
 
-					<div class="col-lg-12">&nbsp;</div>
 
 					<div class="col-lg-2"><label>教师研究所：</label></div>
 					<div class="col-lg-4"><select
 							id="teacher_institute" name="teacher_institute.institute_id"
 							class="form-control">
+						<option selected="selected" value="0">选择研究所</option>
 						<c:forEach var="institute" begin="0" step="1"
 								   items="${requestScope.institutes}">
+							<c:if test="${institute.institute_id!=0}">
 							<option value="${institute.institute_id}">${institute.institute_name}</option>
+							</c:if>
 						</c:forEach>
 					</select></div>
-					<div class="col-lg-2"><label>所在院校：</label></div>
-					<div class="col-lg-4"><input type="text" name="teacher_university" value="${teacher.teacher_university}"class="form-control"/></div>
 					<div class="col-lg-12">&nbsp;</div>
+					<div class="col-lg-2"><label>所属学科：</label></div>
+				   <div class="col-lg-4">
+						<select id="teacher_belong_subject" name="teacher_belong_subject.subject_id" class="form-control">
+							<option selected="selected" value="0">选择所属学科</option>
+							<c:forEach var="Subject" begin="0" step="1"
+									   items="${requestScope.subject}">
+								<c:if test="${Subject.subject_id!=0}">
+								<option value="${Subject.subject_id}">${Subject.subject_name}</option>
+								</c:if>
+							</c:forEach>
+						</select>
+					</div>
 					<div class="col-lg-2"><label>教学科目：</label></div>
 					<div class="col-lg-4"><input type="text" name="teacher_subject" value="${teacher.teacher_subject}" class="form-control"/></div>
+					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>研究方向：</label></div>
 					<div class="col-lg-4"><input type="text" name="teacher_subject_study" value="${teacher.teacher_subject_study}" class="form-control"/></div>
-					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>教学专业：</label></div>
 					<div class="col-lg-4">
 						<select id="teacher_teachingProfession" name="teacher_teachingProfession.teachingProfession_id" class="form-control">
 							<option selected="selected" value="0">选择教学专业</option>
 							<c:forEach var="teachingProfession" begin="0" step="1"
 									   items="${requestScope.teachingProfession}">
+								<c:if test="${teachingProfession.teachingProfession_id!=0}">
 								<option value="${teachingProfession.teachingProfession_id}">${teachingProfession.teachingProfession_name}</option>
+								</c:if>
 							</c:forEach>
 						</select>
 					</div>

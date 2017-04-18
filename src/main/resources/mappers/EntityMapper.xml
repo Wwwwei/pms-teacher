@@ -72,6 +72,7 @@
         <result column="teacher_password" property="teacher_password"/>
         <result column="teacher_salt" property="teacher_salt"/>
         <result column="teacher_no" property="teacher_no"/>
+        <result column="teacher_finance_no" property="teacher_finance_no"/>
         <result column="teacher_sex" property="teacher_sex"/>
         <result column="teacher_email" property="teacher_email"/>
         <result column="teacher_phone_number" property="teacher_phoneNumber"/>
@@ -86,12 +87,11 @@
         <result column="teacher_info" property="teacher_info"/>
         <result column="teacher_info_url" property="teacher_info_url"/>
         <result column="teacher_google_scolar_url" property="teacher_google_scolar_url"/>
-        <result column="teacher_university" property="teacher_university"/>
         <result column="teacher_subject" property="teacher_subject"/>
         <result column="teacher_subject_study" property="teacher_subject_study"/>
-        <collection property="teacher_teachingProfession"
-                    resultMap="TeachingProfessionBean"/>
+        <collection property="teacher_teachingProfession" resultMap="TeachingProfessionBean"/>
         <collection property="teacher_institute" resultMap="InstituteBean"/>
+        <collection property="teacher_belong_subject" resultMap="SubjectBean"/>
     </resultMap>
 
     <resultMap type="com.pms.entity.Institute" id="InstituteBean">
@@ -105,6 +105,12 @@
         <id column="teachingprofession_id" property="teachingProfession_id"/>
         <result column="teachingprofession_name" property="teachingProfession_name"/>
         <result column="teachingprofession_info" property="teachingProfession_info"/>
+    </resultMap>
+    
+     <resultMap type="com.pms.entity.Subject" id="SubjectBean">
+        <id column="subject_id" property="subject_id"/>
+        <result column="subject_name" property="subject_name"/>
+        <result column="subject_info" property="subject_info"/>
     </resultMap>
 
     <resultMap type="com.pms.entity.Paper" id="PaperProxyBean">

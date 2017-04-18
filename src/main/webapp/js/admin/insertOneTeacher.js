@@ -43,6 +43,20 @@ function check()
 			return  false;
 		}
 	}
+	var teacher_finance_no=$("[name=teacher_finance_no]").val();
+	if(teacher_finance_no=="")
+	{
+		alert("财务工号不能为空！")
+		return false;
+	}
+	else
+	{
+		var reg = /^\d+$/;
+		if(!reg.test(teacher_finance_no)){
+			alert("财务工号格式错误");
+			return  false;
+		}
+	}
 	var teacher_name = $("[name=teacher_name]").val();
 	if(teacher_name=="")
 	{
@@ -146,10 +160,10 @@ function check()
 		return false;
 	}
 
-	var teacher_university = $("[name=teacher_university]").val();
-	if(teacher_university=="")
+	var teacher_belong_subject = $("#teacher_belong_subject").val();;
+	if(teacher_belong_subject==0)
 	{
-		alert("所在院校不能为空!");
+		alert("所属学科为空!");
 		return false;
 	}
 	var teacher_subject = $("[name=teacher_subject]").val();

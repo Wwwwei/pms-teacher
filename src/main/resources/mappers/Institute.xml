@@ -12,5 +12,26 @@
     <select id="findAllInstitute" resultMap="pms.entity.EntityMapper.InstituteBean">
        select *from institute     
     </select>
+    
+    <insert id="insertInstitute" parameterType="com.pms.entity.Institute"
+			useGeneratedKeys="true" keyProperty="institute_id">
+		<selectKey keyProperty="institute_id" resultType="java.lang.Integer"
+				   order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		institute(institute_name,institute_info,institute_leader)
+		VALUES(#{institute_name},#{institute_info},#{institute_leader});
+	</insert>
+		<update id="updateInstitute" parameterType="com.pms.entity.Institute">
+		update institute set institute_name=#{institute_name},institute_info = #{institute_info},institute_leader = #{institute_leader}
+		where
+		institute_id=#{institute_id}
+	</update>
+	<delete id="deleteInstitute" parameterType="int">
+		delete from
+		institute where institute_id=#{institute_id}
+	</delete>
   
 </mapper>
