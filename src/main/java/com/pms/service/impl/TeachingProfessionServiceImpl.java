@@ -46,8 +46,11 @@ public class TeachingProfessionServiceImpl implements TeachingProfessionService 
 		return false;
 	}
 	public boolean deleteProfession(int teachingProfession_id) {
-		if (teacherMapper.updateTeacherProfession(teachingProfession_id)!=0&&teachingProfessionMapper.deleteProfession(teachingProfession_id)!=0)
+		if (teachingProfessionMapper.deleteProfession(teachingProfession_id)!=0)
+		{
+			teacherMapper.updateTeacherProfession(teachingProfession_id);
 			return true;
+		}
 		return false;
 	}
 

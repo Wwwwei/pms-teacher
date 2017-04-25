@@ -52,14 +52,32 @@
         var journals_conference_IF_min_value = "${journals_conference_IF_min}";
         $("#journals_conference_IF_min").val(journals_conference_IF_min_value);
 
-        // 		var journals_conference_IF_max_value = "${journals_conference_IF_max}";
-        // 		$("#journals_conference_IF_max").val(journals_conference_IF_max_value);
+        var journals_conference_IF_max_value = "${journals_conference_IF_max}";
+        $("#journals_conference_IF_max").val(journals_conference_IF_max_value);
 
         var paper_citations_min_value = "${paper_citations_min}";
         $("#paper_citations_min").val(paper_citations_min_value);
+        
+        var paper_citations_max_value = "${paper_citations_max}";
+        $("#paper_citations_max").val(paper_citations_max_value);
+        
+        var teachingProfession_id_value ="${teachingProfession_id}";
+        $("#teachingProfession_id").val(teachingProfession_id_value);
+        
+        var journals_conference_flag_value ="${journals_conference_flag}";
+        $("#journals_conference_flag").val(journals_conference_flag_value);
 
         var paper_citations_others_min_value = "${paper_citations_others_min}";
         $("#paper_citations_others_min").val(paper_citations_others_min_value);
+        
+        var paper_citations_others_max_value = "${paper_citations_others_max}";
+        $("#paper_citations_others_max").val(paper_citations_others_max_value);
+        
+        var teacher_title_value = "${teacher_title}";
+        $("#teacher_title").val(teacher_title_value);
+
+        var teacher_institute_value = "${institute_id}";
+        $("#institute_id").val(teacher_institute_value);
     }
     function clicke() {
         var tex = document.getElementById("sele");
@@ -399,13 +417,15 @@
                                     <label>专业</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <select id="teacher_teachingProfession"
+                                    <select id="teachingProfession_id"
                                             name="teachingProfession_id"
                                             class="form-control">
                                         <option value="0" selected="selected">----请选择----</option>
                                         <c:forEach var="teachingProfession" begin="0" step="1"
                                                    items="${teachingProfession}">
+                                            <c:if test="${teachingProfession.teachingProfession_id!=0}">
                                             <option value="${teachingProfession.teachingProfession_id}">${teachingProfession.teachingProfession_name}</option>
+                                            </c:if>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -416,12 +436,14 @@
                                     <label>研究所</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <select id="teacher_institute"
+                                    <select id="institute_id"
                                             name="institute_id" class="form-control">
                                         <option value="0" selected="selected">----请选择----</option>
                                         <c:forEach var="institute" begin="0" step="1"
                                                    items="${institutes}">
+                                             <c:if test="${institute.institute_id!=0}">
                                             <option value="${institute.institute_id}">${institute.institute_name}</option>
+                                             </c:if>
                                         </c:forEach>
                                     </select>
                                 </div>

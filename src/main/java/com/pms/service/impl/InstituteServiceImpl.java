@@ -51,8 +51,11 @@ public class InstituteServiceImpl implements InstituteService {
 		return false;
 	}
 	public boolean deleteInstitute(int institute_id) {
-		if (teacherMapper.updateTeacherInstitute(institute_id)!=0&&instituteMapper.deleteInstitute(institute_id)!=0)
+		if (instituteMapper.deleteInstitute(institute_id)!=0)
+		{
+			teacherMapper.updateTeacherInstitute(institute_id);
 			return true;
+		}
 		return false;
 	}
 
