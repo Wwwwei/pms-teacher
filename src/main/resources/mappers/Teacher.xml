@@ -74,8 +74,8 @@
 		where teacher_teachingprofession_id=#{teachingprofession_id}
 	</update>
 	<update id="updateTeacherSubject" parameterType="int">
-		update teacher set teacher_subject_belong_id=0
-		where teacher_subject_belong_id=#{subject_id}
+		update teacher set teacher_belong_subject_id=0
+		where teacher_belong_subject_id=#{subject_id}
 	</update>
 
 </mapper>

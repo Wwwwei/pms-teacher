@@ -44,8 +44,11 @@ public class SubjectServiceImpl implements SubjectService{
 		return false;
 	}
 	public boolean deleteSubject(int subject_id) {
-		if (teacherMapper.updateTeacherSubject(subject_id)!=0&&subjectMapper.deleteSubject(subject_id)!=0)
+		if (subjectMapper.deleteSubject(subject_id)!=0)
+		{
+			teacherMapper.updateTeacherSubject(subject_id);
 			return true;
+		}
 		return false;
 	}
 

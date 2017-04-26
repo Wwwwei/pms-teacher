@@ -223,6 +223,11 @@
 						</select>
 					</div>
 					<div class="col-lg-12">&nbsp;</div>
+					<div class="col-lg-2"><label>个人主页：</label></div>
+					<div class="col-lg-4"><input type="text" name="teacher_info_url" value="${teacher.teacher_info_url}" class="form-control"/></div>
+					<div class="col-lg-2"><label>谷歌个人主页：</label></div>
+					<div class="col-lg-4"><input type="text" name="teacher_google_scolar_url" value="${teacher.teacher_google_scolar_url}" class="form-control"/></div>
+					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>教师简介：</label></div>
 					<div class="col-lg-10"><textarea name="teacher_info"
 													 class="form-control" style="height:80px">${teacher.teacher_info}</textarea></div>
