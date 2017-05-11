@@ -39,16 +39,16 @@
 			<c:if test="${requestScope.type=='institute'}">
 			<form id="insertInstitute" action="admin/insertInstitute.do" method="post" onSubmit="return check1()" class="form-horizontal">
 					<div class="col-lg-12">&nbsp;</div>
-				<div class="col-lg-2"><label>研究院名称：</label></div>
+				<div class="col-lg-2"><label>部门名称：</label></div>
 				<div class="col-lg-4"><input type="text" name="institute_name" id="institute_name" class="form-control"></div>
 				<div class="col-lg-12">&nbsp;</div>
 
-				<div class="col-lg-2"><label>研究院信息：</label></div>
+				<div class="col-lg-2"><label>部门信息：</label></div>
 				<div class="col-lg-4"><input type="text" name="institute_info" id="institute_info" class="form-control"></div>
 
 				<div class="col-lg-12">&nbsp;</div>
 				
-				<div class="col-lg-2"><label>研究院领导：</label></div>
+				<div class="col-lg-2"><label>部门领导：</label></div>
 				<div class="col-lg-4"><input type="text" name="institute_leader" id="institute_leader" class="form-control"></div>
                 <div class="col-lg-12">&nbsp;</div>
 				
@@ -85,6 +85,24 @@
 
 				<div class="col-lg-2"><label>学科信息：</label></div>
 				<div class="col-lg-4"><input type="text" name="subject_info" id="subject_info"  class="form-control"></div>
+
+				<div class="col-lg-12">&nbsp;</div>
+				
+					<div class="col-lg-2 col-lg-offset-2">
+						<input type="submit" class="btn btn-primary" value="确认录入">
+					</div>
+
+			</form>
+			</c:if>
+			<c:if test="${requestScope.type=='title'}">
+			<form id="insertTitle" action="admin/insertTitle.do" method="post" onSubmit="return check4()" class="form-horizontal">
+					<div class="col-lg-12">&nbsp;</div>
+				<div class="col-lg-2"><label>职称名称：</label></div>
+				<div class="col-lg-4"><input type="text" name="title_name" id="title_name" class="form-control"></div>
+				<div class="col-lg-12">&nbsp;</div>
+
+				<div class="col-lg-2"><label>职称信息：</label></div>
+				<div class="col-lg-4"><input type="text" name="title_info" id="title_info"  class="form-control"></div>
 
 				<div class="col-lg-12">&nbsp;</div>
 				

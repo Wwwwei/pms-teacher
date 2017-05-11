@@ -54,10 +54,14 @@
 	             <div class="col-lg-12">&nbsp;</div>
 				<div class="col-lg-2"><label>教师职称：</label></div>
 				<div class="col-lg-4">
-					<select id="teacher_title" name="teacher_title" class="form-control">
-						<option value="教授">教授</option>
-						<option value="副教授">副教授</option>
-						<option value="讲师">讲师</option>
+					<select id="teacher_title" name="teacher_title.title_id" class="form-control">
+						<option selected="selected" value="0">选择教师职称</option>
+						<c:forEach var="title" begin="0" step="1"
+								   items="${requestScope.title}">
+								   <c:if test="${title.title_id!=1}">			   
+							<option value="${title.title_id}">${title.title_name}</option>
+							</c:if>
+						</c:forEach>
 					</select>
 				</div>
 
@@ -108,10 +112,10 @@
 				<div class="col-lg-2"><label>教师简介：</label></div>
 				<div class="col-lg-4"><input type="text" name="teacher_info" class="form-control"/></div>
 	            <div class="col-lg-12">&nbsp;</div>
-				<div class="col-lg-2"><label>教师研究所：</label></div>
+				<div class="col-lg-2"><label>教师部门：</label></div>
 				<div class="col-lg-4">
 					<select id="teacher_institute" name="teacher_institute.institute_id" class="form-control">
-						<option selected="selected" value="0">选择研究所</option>
+						<option selected="selected" value="0">选择部门</option>
 						<c:forEach var="institute" begin="0" step="1"
 								   items="${requestScope.institutes}">
 								   <c:if test="${institute.institute_id!=0}">			   

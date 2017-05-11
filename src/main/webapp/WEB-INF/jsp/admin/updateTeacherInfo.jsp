@@ -64,8 +64,8 @@
 		var teacher_belong_subject_id_value = "${teacher.teacher_belong_subject.subject_id}";
 		$("#teacher_belong_subject").val(teacher_belong_subject_id_value);
 
-		var teacher_title_value = "${teacher.teacher_title}";
-		$("#teacher_title").val(teacher_title_value);
+		var teacher_title_id_value = "${teacher.teacher_title.title_id}";
+		$("#teacher_title").val(teacher_title_id_value);
 
 		var updateTeacherResult_value = "${updateTeacherResult}";
 		if (updateTeacherResult_value != "")
@@ -133,12 +133,17 @@
 					</select></div>
 					<div class="col-lg-12">&nbsp;</div>
 					<div class="col-lg-2"><label>教师职称：</label></div>
-					<div class="col-lg-4"><select id="teacher_title" name="teacher_title"
-												  class="form-control">
-						<option value="教授">教授</option>
-						<option value="副教授">副教授</option>
-						<option value="讲师">讲师</option>
-					</select> </div>
+					<div class="col-lg-4">
+					<select id="teacher_title" name="teacher_title.title_id" class="form-control">
+						<option value="0" selected="selected">----请选择----</option>
+							<c:forEach var="title" begin="0" step="1"
+					         items="${title}">
+							<c:if test="${title.title_id!=1}">
+								<option value="${title.title_id}">${title.title_name}</option>
+							</c:if>
+							</c:forEach>
+					</select>
+					</div>
 
 
 					<div class="col-lg-2"><label>出生年月：</label></div>
@@ -180,11 +185,11 @@
 							max="2019-09-26" class="form-control"/></div>
 
 
-					<div class="col-lg-2"><label>教师研究所：</label></div>
+					<div class="col-lg-2"><label>教师部门：</label></div>
 					<div class="col-lg-4"><select
 							id="teacher_institute" name="teacher_institute.institute_id"
 							class="form-control">
-						<option selected="selected" value="0">选择研究所</option>
+						<option selected="selected" value="0">选择部门</option>
 						<c:forEach var="institute" begin="0" step="1"
 								   items="${requestScope.institutes}">
 							<c:if test="${institute.institute_id!=0}">

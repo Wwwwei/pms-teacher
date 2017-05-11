@@ -13,7 +13,6 @@
 	    select teacher_password from teacher where teacher_no = #{teacher_no}
 	</select>
 
-
 	<update id="updatePassword" parameterType="java.util.Map">
 		update teacher set teacher_password=#{teacher_password},teacher_salt = #{teacher_salt} where
 		teacher_id=#{teacher_id}
@@ -21,7 +20,7 @@
 
 	<update id="updateTeacher" parameterType="com.pms.entity.Teacher">
 		update teacher set teacher_name=#{teacher_name},teacher_sex = #{teacher_sex},teacher_email = #{teacher_email},
-		teacher_phone_number = #{teacher_phoneNumber},teacher_office_number = #{teacher_officeNumber},teacher_title = #{teacher_title},
+		teacher_phone_number = #{teacher_phoneNumber},teacher_office_number = #{teacher_officeNumber},teacher_title_id = #{teacher_title.title_id},
 		teacher_birth = #{teacher_birth},teacher_qq = #{teacher_qq},teacher_id_card = #{teacher_idCard},teacher_come_time = #{teacher_comeTime},
 		teacher_gra_university = #{teacher_graUniversity},teacher_info = #{teacher_info},teacher_info_url = #{teacher_info_url},
 		teacher_google_scolar_url = #{teacher_google_scolar_url},teacher_belong_subject_id = #{teacher_belong_subject.subject_id},teacher_subject = #{teacher_subject},teacher_subject_study = #{teacher_subject_study},
@@ -49,18 +48,18 @@
 	<insert id="insertTeacher" parameterType="com.pms.entity.Teacher">
 		insert into
 		teacher(teacher_no,teacher_finance_no,teacher_name,teacher_password,teacher_salt,teacher_sex,teacher_email,teacher_phone_number,teacher_office_number,
-		teacher_title,teacher_qq,teacher_id_card,teacher_come_time,teacher_info,teacher_birth,teacher_info_url,
+		teacher_title_id,teacher_qq,teacher_id_card,teacher_come_time,teacher_info,teacher_birth,teacher_info_url,
 		teacher_google_scolar_url,teacher_belong_subject_id,teacher_gra_university,teacher_subject,teacher_subject_study,teacher_institute_id,teacher_teachingprofession_id)
 		values(#{teacher_no},#{teacher_finance_no},#{teacher_name},#{teacher_password},#{teacher_salt},#{teacher_sex},#{teacher_email},#{teacher_phoneNumber},#{teacher_officeNumber},
-		#{teacher_title},#{teacher_qq},#{teacher_idCard},#{teacher_comeTime},#{teacher_info},#{teacher_birth},#{teacher_info_url},#{teacher_google_scolar_url},
+		#{teacher_title.title_id},#{teacher_qq},#{teacher_idCard},#{teacher_comeTime},#{teacher_info},#{teacher_birth},#{teacher_info_url},#{teacher_google_scolar_url},
 		#{teacher_belong_subject.subject_id},#{teacher_graUniversity},#{teacher_subject},#{teacher_subject_study},#{teacher_institute.institute_id},#{teacher_teachingProfession.teachingProfession_id})
 	</insert>
 
 	<select id="findTeacher" parameterType="java.util.Map"
 			resultMap="pms.entity.EntityMapper.TeacherBean">
-		select t.*,i.* ,f.*,s.* from teacher t,institute i,teachingprofession f,subject s
+		select t.*,i.* ,f.*,s.* ,ti.*from teacher t,institute i,teachingprofession f,subject s,title ti
 		<where>
-			t.teacher_institute_id=i.institute_id and t.teacher_teachingprofession_id=f.teachingprofession_id and t.teacher_belong_subject_id=s.subject_id
+			t.teacher_institute_id=i.institute_id and t.teacher_teachingprofession_id=f.teachingprofession_id and t.teacher_belong_subject_id=s.subject_id and t.teacher_title_id=ti.title_id
 			<if test="teacher_no!=null">and teacher_no = #{teacher_no}</if>
 			<if test="teacher_name!=null">and teacher_name = #{teacher_name}</if>
 		</where>
@@ -76,6 +75,11 @@
 	<update id="updateTeacherSubject" parameterType="int">
 		update teacher set teacher_belong_subject_id=0
 		where teacher_belong_subject_id=#{subject_id}
+	</update>
+	
+	<update id="updateTeacherTitle" parameterType="int">
+		update teacher set teacher_title_id=1
+		where teacher_title_id=#{title_id}
 	</update>
 
 </mapper>

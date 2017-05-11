@@ -11,6 +11,7 @@ import com.pms.dao.TeacherMapper;
 import com.pms.service.InstituteService;
 import com.pms.service.SubjectService;
 import com.pms.service.TeachingProfessionService;
+import com.pms.service.TitleService;
 import com.pms.util.CryptoUtil;
 
 import javax.annotation.Resource;
@@ -37,6 +38,9 @@ public class TeacherServiceImpl implements TeacherService {
 	
 	@Resource(name = "subjectServiceImpl")
 	private SubjectService subjectService;
+	
+	@Resource(name = "titleServiceImpl")
+	private TitleService titleService;
 
 	@Override
 	public Map<String, String> findTeacherPassword(String teacher_no) {
@@ -115,7 +119,7 @@ public class TeacherServiceImpl implements TeacherService {
 					String teacher_email = rs.getCell(j++, i).getContents();
 					String teacher_phoneNumber = rs.getCell(j++, i).getContents();
 					String teacher_officeNumber = rs.getCell(j++, i).getContents();
-					String teacher_title = rs.getCell(j++, i).getContents();
+					String teacher_title_name = rs.getCell(j++, i).getContents();
 					String teacher_birth = rs.getCell(j++, i).getContents();
 //					String teacher_age = rs.getCell(j++, i).getContents();
 					String teacher_qq = rs.getCell(j++, i).getContents();
@@ -138,6 +142,7 @@ public class TeacherServiceImpl implements TeacherService {
 					Institute teacher_institute = instituteService.getInstitue(teacher_institute_name.trim());
 					TeachingProfession teachingProfession=teachingProfessionService.getTeachingProfession(teacher_teachingProfession_name.trim());
 					Subject subject=subjectService.getSubject(teacher_belong_subject_name.trim());
+					Title teacher_title=titleService.getTitle(teacher_title_name);
 					list.add(new Teacher(teacher_no, teacher_finance_no,teacher_name, null, null, teacher_sex, teacher_email,
 							teacher_phoneNumber, teacher_officeNumber, teacher_title, teacher_birth,
 							0, teacher_qq, teacher_idCard, teacher_comeTime,

@@ -77,7 +77,6 @@
         <result column="teacher_email" property="teacher_email"/>
         <result column="teacher_phone_number" property="teacher_phoneNumber"/>
         <result column="teacher_office_number" property="teacher_officeNumber"/>
-        <result column="teacher_title" property="teacher_title"/>
         <result column="teacher_birth" property="teacher_birth"/>
         <result column="teacher_age" property="teacher_age"/>
         <result column="teacher_qq" property="teacher_qq"/>
@@ -92,6 +91,7 @@
         <collection property="teacher_teachingProfession" resultMap="TeachingProfessionBean"/>
         <collection property="teacher_institute" resultMap="InstituteBean"/>
         <collection property="teacher_belong_subject" resultMap="SubjectBean"/>
+        <collection property="teacher_title" resultMap="TitleBean"/>
     </resultMap>
 
     <resultMap type="com.pms.entity.Institute" id="InstituteBean">
@@ -111,6 +111,12 @@
         <id column="subject_id" property="subject_id"/>
         <result column="subject_name" property="subject_name"/>
         <result column="subject_info" property="subject_info"/>
+    </resultMap>
+    
+     <resultMap type="com.pms.entity.Title" id="TitleBean">
+        <id column="title_id" property="title_id"/>
+        <result column="title_name" property="title_name"/>
+        <result column="title_info" property="title_info"/>
     </resultMap>
 
     <resultMap type="com.pms.entity.Paper" id="PaperProxyBean">

@@ -48,5 +48,7 @@ public interface TeacherMapper {
 	public int updateTeacherProfession(int teachingProfession_id);
 	
 	public int updateTeacherSubject(int subject_id);
+	
+	public int updateTeacherTitle(int title_id);
 
 }

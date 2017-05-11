@@ -51,6 +51,9 @@ public class AdminHandler {
     
     @Resource(name = "subjectServiceImpl")
     private SubjectService subjectService;
+    
+    @Resource(name = "titleServiceImpl")
+    private TitleService titleService;
 
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public String login(Admin admin, HttpSession session, HttpServletRequest request) {
@@ -578,9 +581,11 @@ public class AdminHandler {
         List<Institute> institutes = instituteService.getAllInstitute();
         List<TeachingProfession> teachingProfession = teachingProfessionService.getAllTeachingProfession();
         List<Subject>subject=subjectService.getAllSubject();
+        List<Title>title=titleService.getAllTitle();
         request.setAttribute("institutes", institutes);
         request.setAttribute("teachingProfession", teachingProfession);
         request.setAttribute("subject", subject);
+        request.setAttribute("title", title);
         return "admin/insertOneTeacher";
     }
 
@@ -623,12 +628,14 @@ public class AdminHandler {
         List<Institute> institutes = instituteService.getAllInstitute();
         List<TeachingProfession> teachingProfession = teachingProfessionService.getAllTeachingProfession();
         List<Subject> subject = subjectService.getAllSubject();
+        List<Title> title=titleService.getAllTitle();
         request.setAttribute("teachingProfession", teachingProfession);
         request.setAttribute("institutes", institutes);
         request.setAttribute("find_string", find_string);
         request.setAttribute("isFindTeacher", true);
         request.setAttribute("teacher", teacher);
         request.setAttribute("subject", subject);
+        request.setAttribute("title", title);
         return "admin/updateTeacherInfo";
     }
 
@@ -641,12 +648,14 @@ public class AdminHandler {
             List<Institute> institutes = instituteService.getAllInstitute();
             List<TeachingProfession> teachingProfession = teachingProfessionService.getAllTeachingProfession();
             List<Subject> subject = subjectService.getAllSubject();
+            List<Title>title=titleService.getAllTitle();
             request.setAttribute("teachingProfession", teachingProfession);
             request.setAttribute("teacher", teacher);
             request.setAttribute("find_string", teacher.getTeacher_no());
             request.setAttribute("isFindTeacher", true);
             request.setAttribute("institutes", institutes);
             request.setAttribute("subject", subject);
+            request.setAttribute("title", title);
             request.setAttribute("updateTeacherResult", "修改教师信息成功！");
         } else {
             request.setAttribute("updateTeacherResult", "修改教师信息失败，请重新尝试！");
@@ -781,6 +790,38 @@ public class AdminHandler {
 			return "redirect:/loginAdmin.jsp";
 		subjectService.deleteSubject(subject_id);
 		 return "redirect:/admin/findSubject.do";
+	}
+	@RequestMapping(value = "/admin/deleteTitle", method = RequestMethod.GET)
+	public String deleteTitle(@RequestParam("title_id") int title_id,
+			HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		titleService.deleteTitle(title_id);
+		 return "redirect:/admin/findTitle.do";
+	}
+	@RequestMapping(value = "/admin/findTitle", method = RequestMethod.GET)
+	public String findTitle(HttpSession session,HttpServletRequest request){
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		  List<Title> title = titleService.getAllTitle();
+		request.setAttribute("title", title);
+		request.setAttribute("type", "title");
+		return "admin/infoConfig";
+	}
+	@RequestMapping(value = "/admin/insertTitle", method = RequestMethod.POST)
+	public String addMessage(Title title,
+			HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";	
+		titleService.insertTitle(title);
+		 return "redirect:/admin/findTitle.do";
+	}
+	@RequestMapping(value = "/admin/updateTitle", method = RequestMethod.POST)
+	public String updateTitle(Title title,HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException{
+		if (session.getAttribute("admin") == null)
+			return "redirect:/loginAdmin.jsp";
+		 titleService.updateTitle(title);
+		 return "redirect:/admin/findTitle.do";
 	}
 
 }

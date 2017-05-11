@@ -53,6 +53,9 @@ public class PaperHandler {
 
 	@Resource(name = "teachingProfessionServiceImpl")
 	private TeachingProfessionService teachingProfessionService;
+	
+	@Resource(name = "titleServiceImpl")
+	private TitleService titleService;
 
 	@RequestMapping(value = "/findPaper", method = RequestMethod.POST)
 	public String findPaper(@RequestParam(required = false, defaultValue = "") String find_string,
@@ -142,7 +145,7 @@ public class PaperHandler {
 		int teacher_id = (int) session.getAttribute("teacher_id");
 		int institute_id=(int) session.getAttribute("institute_id");
 		int teachingProfession_id=(int) session.getAttribute("teachingProfession_id");
-		String teacher_title = (String) session.getAttribute("teacher_title");
+		int title_id = (int) session.getAttribute("title_id");
 		int teacher_sex = (int) session.getAttribute("teacher_sex");
 		int teacher_age_min = (int) session.getAttribute("teacher_age_min");
 		int teacher_age_max = (int) session.getAttribute("teacher_age_max");
@@ -155,7 +158,7 @@ public class PaperHandler {
 		List<Paper> papers = paperService.findAllPaper(journals_conference_id, paper_includedType, paper_time,
 				journals_conference_flag, teacher_id, teacher_sex, teacher_age_min, teacher_age_max,
 				journals_conference_IF_min, journals_conference_IF_max, paper_citations_min, paper_citations_max,
-				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,teacher_title,column, order, page);
+				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,column, order, page);
 		session.setAttribute("papers", papers);
 		session.setAttribute("page", page);
 		return FIND_RESULT;
@@ -220,11 +223,12 @@ public class PaperHandler {
 		Page page = new Page();
 		page.setCurrentPage(1);
 		List<Paper> papers = paperService.findAllPaper(0, "ALL", "ALL", -1, 0, -1, 0, 100, 0, 1000.0, 0, 100000, 0,
-				100000, 0, 0,"ALL","ALL", 1, page);
+				100000, 0, 0,0,"ALL", 1, page);
 		List<JournalsConference> journals_Conferences = journalsConferenceService.findAllJournals_Conference();
 		List<Teacher> teachers = teacherService.findAllTeacher();
 		List<Institute> institutes = instituteService.getAllInstitute();
 		List<TeachingProfession>teachingProfession=teachingProfessionService.getAllTeachingProfession();
+		List<Title> title=titleService.getAllTitle();
 		session.setAttribute("journals_conference_id", 0);
 		session.setAttribute("paper_includedType", "ALL");
 		session.setAttribute("paper_time", "ALL");
@@ -241,7 +245,7 @@ public class PaperHandler {
 		session.setAttribute("paper_citations_max", 100000);
 		session.setAttribute("paper_citations_others_min", 0);
 		session.setAttribute("paper_citations_others_max", 100000);
-		session.setAttribute("teacher_title", "ALL");
+		session.setAttribute("title_id", 0);
 		session.setAttribute("column", "ALL");
 		session.setAttribute("order", 1);
 
@@ -251,6 +255,7 @@ public class PaperHandler {
 		session.setAttribute("teachers", teachers);
 		session.setAttribute("institutes", institutes);
 		session.setAttribute("teachingProfession", teachingProfession);
+		session.setAttribute("title", title);
 		session.setAttribute("page", page);
 		logger.debug("所有论文查询成功，进行返回...");
 		return FIND_ALL_RESULT;
@@ -290,7 +295,7 @@ public class PaperHandler {
 		int teacher_id = (int) session.getAttribute("teacher_id");
 		int institute_id=(int) session.getAttribute("institute_id");
 		int teachingProfession_id=(int) session.getAttribute("teachingProfession_id");
-		String teacher_title = (String) session.getAttribute("teacher_title");
+		int title_id = (int) session.getAttribute("title_id");
 		int teacher_sex = (int) session.getAttribute("teacher_sex");
 		int teacher_age_min = (int) session.getAttribute("teacher_age_min");
 		int teacher_age_max = (int) session.getAttribute("teacher_age_max");
@@ -303,7 +308,7 @@ public class PaperHandler {
 		List<Paper> papers = paperService.findAllPaper(journals_conference_id, paper_includedType, paper_time,
 				journals_conference_flag, teacher_id, teacher_sex, teacher_age_min, teacher_age_max,
 				journals_conference_IF_min, journals_conference_IF_max, paper_citations_min, paper_citations_max,
-				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,teacher_title,column, order, page);
+				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,column, order, page);
 		session.setAttribute("papers", papers);
 		session.setAttribute("page", page);
 		System.out.println(page.getCurrentPage()+"==============");
@@ -340,7 +345,7 @@ public class PaperHandler {
 							   @RequestParam(value = "paper_citations_others_max", required = false, defaultValue = "100000") int paper_citations_others_max,
 							   @RequestParam(value = "institute_id", required = false, defaultValue = "0") int institute_id,
 							   @RequestParam(value = "teachingProfession_id", required = false, defaultValue = "0") int teachingProfession_id,
-							   @RequestParam(value = "teacher_title", required = false, defaultValue = "ALL") String teacher_title){
+							   @RequestParam(value = "title_id", required = false, defaultValue = "0") int title_id){
 		Page page = new Page();
 		page.setCurrentPage(1);
 		if(session.getAttribute("column")==null){
@@ -364,11 +369,11 @@ public class PaperHandler {
 		session.setAttribute("paper_citations_others_max", paper_citations_others_max);
 		session.setAttribute("institute_id", institute_id);
 		session.setAttribute("teachingProfession_id", teachingProfession_id);
-		session.setAttribute("teacher_title", teacher_title);
+		session.setAttribute("title_id", title_id);
 		List<Paper> papers = paperService.findAllPaper(journals_conference_id, paper_includedType, paper_time,
 				journals_conference_flag, teacher_id, teacher_sex, teacher_age_min, teacher_age_max,
 				journals_conference_IF_min, journals_conference_IF_max, paper_citations_min, paper_citations_max,
-				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,teacher_title,column, order, page);
+				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,column, order, page);
 		session.setAttribute("papers", papers);
 		session.setAttribute("page", page);
 		return FIND_ALL_RESULT;
