@@ -21,9 +21,10 @@
 				信息配置<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="admin/findInstitute.do?">研究院信息</a></li>
+				<li><a href="admin/findInstitute.do?">部门信息</a></li>
 				<li><a href="admin/findProfession.do?">专业信息</a></li>
 				<li><a href="admin/findSubject.do?">学科信息</a></li>
+				<li><a href="admin/findTitle.do?">职称信息</a></li>
 			</ul>
 		</div>
 
@@ -41,9 +42,10 @@
 				信息配置<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="admin/findInstitute.do?">研究院信息</a></li>
+				<li><a href="admin/findInstitute.do?">部门信息</a></li>
 				<li><a href="admin/findProfession.do?">专业信息</a></li>
 				<li><a href="admin/findSubject.do?">学科信息</a></li>
+				<li><a href="admin/findTitle.do?">职称信息</a></li>
 			</ul>
 		</div>
 
@@ -61,9 +63,10 @@
 				信息配置<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-			<li><a href="admin/findInstitute.do?">研究院信息</a></li>
+			<li><a href="admin/findInstitute.do?">部门信息</a></li>
 				<li><a href="admin/findProfession.do?">专业信息</a></li>
 				<li><a href="admin/findSubject.do?">学科信息</a></li>
+				<li><a href="admin/findTitle.do?">职称信息</a></li>
 			</ul>
 		</div>
 		<%

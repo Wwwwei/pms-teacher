@@ -53,3 +53,20 @@ function check3()
 	
 	return true;
 }
+function check4()
+{
+	var title_name=$("[name=title_name]").val();
+	if(title_name=="")
+	{
+		alert("职称名称不能为空！")
+		return false;
+	}
+	var title_info=$("[name=title_info]").val();
+	if(title_info=="")
+	{
+		alert("职称信息不能为空！")
+		return false;
+	}
+	
+	return true;
+}

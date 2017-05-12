@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pms.dao.TitleMapper">
+
+
+    <select id="getAllTitle" resultMap="pms.entity.EntityMapper.TitleBean">
+        select *from title
+    </select>
+     <select id="findTitleByName" parameterType="String" resultMap="pms.entity.EntityMapper.TitleBean">
+       select *from title where title_name=#{title_name}
+    </select>
+    <insert id="insertTitle" parameterType="com.pms.entity.Title"
+			useGeneratedKeys="true" keyProperty="title_id">
+		<selectKey keyProperty="title_id" resultType="java.lang.Integer"
+				   order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		title(title_name,title_info)
+		VALUES(#{title_name},#{title_info});
+	</insert>
+		<update id="updateTitle" parameterType="com.pms.entity.Title">
+		update title set title_name=#{title_name},title_info = #{title_info}
+		where
+		title_id=#{title_id}
+	</update>
+	<delete id="deleteTitle" parameterType="int">
+		delete from
+		title where title_id=#{title_id}
+	</delete>
+
+</mapper>

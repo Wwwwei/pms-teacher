@@ -56,7 +56,7 @@ $(function() {
 		<div class="container">
 			<h1>Hello, ${sessionScope.teacher.teacher_name }</h1>
 			<p>
-				<span class="glyphicon glyphicon-user"></span>&nbsp;${sessionScope.teacher.teacher_title }
+				<span class="glyphicon glyphicon-user"></span>&nbsp;${sessionScope.teacher.teacher_title.title_name }
 			</p>
 			<div class="row">
 				<div class="col-lg-4 col-lg-offset-4">
@@ -112,7 +112,7 @@ $(function() {
 			<dd>${sessionScope.teacher.teacher_subject_study}</dd>
 		</dl>
 		<dl class="dl-horizontal text-overflow">
-			<dt>研究所</dt>
+			<dt>所属部门</dt>
 			<dd>${sessionScope.teacher.teacher_institute.institute_name}</dd>
 		</dl>
 		<dl class="dl-horizontal text-overflow">

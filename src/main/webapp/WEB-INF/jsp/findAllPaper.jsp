@@ -73,8 +73,8 @@
         var paper_citations_others_max_value = "${paper_citations_others_max}";
         $("#paper_citations_others_max").val(paper_citations_others_max_value);
         
-        var teacher_title_value = "${teacher_title}";
-        $("#teacher_title").val(teacher_title_value);
+        var teacher_title_value = "${title_id}";
+        $("#title_id").val(teacher_title_value);
 
         var teacher_institute_value = "${institute_id}";
         $("#institute_id").val(teacher_institute_value);
@@ -433,7 +433,7 @@
                                     <br>
                                 </div>
                                 <div class="col-md-1">
-                                    <label>研究所</label>
+                                    <label>部门</label>
                                 </div>
                                 <div class="col-md-5">
                                     <select id="institute_id"
@@ -451,16 +451,19 @@
                                 <div class="col-md-1">
                                     <label>职称</label>
                                 </div>
-                                <div class="col-md-5">
-                                    <select id="teacher_title" name="teacher_title"
-                                            class="form-control">
-                                        <option value="ALL" selected="selected">----请选择----</option>
-                                        <option value="教授">教授</option>
-                                        <option value="副教授">副教授</option>
-                                        <option value="讲师">讲师</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-12">&nbsp;</div>
+									<div class="col-md-5">
+										<select id="title_id" name="title_id"
+											class="form-control">
+											<option value="0" selected="selected">----请选择----</option>
+											<c:forEach var="title" begin="0" step="1"
+												items="${title}">
+												<c:if test="${title.title_id!=1}">
+													<option value="${title.title_id}">${title.title_name}</option>
+												</c:if>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="col-md-12">&nbsp;</div>
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary btn-lg">查询</button>
                                 </div>

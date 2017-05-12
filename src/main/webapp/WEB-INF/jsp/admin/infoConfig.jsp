@@ -41,13 +41,13 @@
 <c:if test="${requestScope.type=='institute'}">
 	<div class="col-lg-12">&nbsp;</div>
 		<div class="col-lg-3">
-		   <label>研究院名称</label>
+		   <label>部门名称</label>
 		</div>
 		<div class="col-lg-3">
-		   <label>研究院信息</label>
+		   <label>部门信息</label>
 		</div>
 		<div class="col-lg-3">
-		   <label>研究院领导</label>
+		   <label>部门领导</label>
 		</div>
 		   <div class="col-lg-1">
 		    <label>操作</label>
@@ -138,6 +138,40 @@
 				<input type="submit" class="btn bnt-button"  value=" 修改">				
 			</form>
 			<a id="a2" href="admin/deleteSubject.do?subject_id=${subject.subject_id}" class="btn bnt-button">删除</a>
+		</div>
+		</c:if>
+		<div class="col-lg-12">&nbsp;</div>
+	</c:forEach>
+	<div class="col-lg-3 col-lg-offset-3">
+	<a id="a3" class='btn btn-primary' href="admin/addMessagePage.do?type=${requestScope.type}">录入</a> </span>
+	</div>			
+	</c:if>
+	<c:if test="${requestScope.type=='title'}">
+	<div class="col-lg-12">&nbsp;</div>
+		<div class="col-lg-3">
+		   <label>职称名称</label>
+		</div>
+		<div class="col-lg-3">
+		   <label>职称信息</label>
+		</div>
+		   <div class="col-lg-1">
+		    <label>操作</label>
+		</div>
+		<div class="col-lg-12">&nbsp;</div>
+	<c:forEach var="title" begin="0" step="1" items="${requestScope.title}">
+	<c:if test="${title.title_name!='无'}">
+	<form id="updateTitle" action="admin/updateTitle.do" method="post" class="form-horizontal">
+		<input id="title_id" name="title_id" type="hidden" value="${title.title_id}">
+		<div class="col-lg-3">
+			<input id="title_name" name="title_name" width="100" value="${title.title_name}">
+		</div>
+		<div class="col-lg-3">
+			<input id="title_info" name="title_info" width="100" value="${title.title_info}">
+		</div>
+		<div class="col-lg-2">
+				<input type="submit" class="btn bnt-button"  value=" 修改">				
+			</form>
+			<a id="a2" href="admin/deleteTitle.do?title_id=${title.title_id}" class="btn bnt-button">删除</a>
 		</div>
 		</c:if>
 		<div class="col-lg-12">&nbsp;</div>

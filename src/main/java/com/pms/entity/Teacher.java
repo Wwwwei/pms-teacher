@@ -11,7 +11,7 @@ public class Teacher {
     private String teacher_email;
     private String teacher_phoneNumber;
     private String teacher_officeNumber;
-    private String teacher_title;
+    private Title teacher_title;
     private String teacher_birth;
     private int teacher_age;
     private String teacher_qq;
@@ -106,11 +106,11 @@ public class Teacher {
         this.teacher_officeNumber = teacher_officeNumber;
     }
 
-    public String getTeacher_title() {
+    public Title getTeacher_title() {
         return teacher_title;
     }
 
-    public void setTeacher_title(String teacher_title) {
+    public void setTeacher_title(Title teacher_title) {
         this.teacher_title = teacher_title;
     }
 
@@ -229,7 +229,7 @@ public class Teacher {
 
     public Teacher(String teacher_no, String teacher_finance_no, String teacher_name, String teacher_password, String teacher_salt,
                    int teacher_sex, String teacher_email, String teacher_phoneNumber, String teacher_officeNumber,
-                   String teacher_title, String teacher_birth, int teacher_age, String teacher_qq, String teacher_idCard,
+                   Title teacher_title, String teacher_birth, int teacher_age, String teacher_qq, String teacher_idCard,
                    String teacher_comeTime, String teacher_graUniversity, String teacher_info, String teacher_info_url,
                    String teacher_google_scolar_url, Subject teacher_belong_subject, String teacher_subject,
                    String teacher_subject_study, Institute teacher_institute, TeachingProfession teacher_teachingProfession) {
