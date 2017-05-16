@@ -219,5 +219,10 @@ public class TeacherServiceImpl implements TeacherService {
 		params.put("page", page);
 		return teacherMapper.findAllTeacherByPage(params);
 	}
+	
+	@Override
+	public List<Teacher> findAllTeacherMessage() {
+		return teacherMapper.findAllTeacherMessage();
+	}
 
 }

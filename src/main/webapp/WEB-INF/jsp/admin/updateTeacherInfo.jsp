@@ -90,13 +90,13 @@
             <span style="margin-right:100px;">		</span>
             <input id="exportLocation" type="hidden" name="exportLocation" value=""/>
             <c:if test="${requestScope.teacher==null}">
-            <span><a href="exportPaper.do">导出论文</a></span>
+            <span><a href="exportTeacher.do">导出教师信息</a></span>
             </c:if>
         </blockquote>
         <form action="admin/findTeacherInfo.do" method="post" class="form-inline">
 				<div class="col-lg-6">
 					<div class="input-group" style="width:100%" style="hight:100%">
-						<input type="text" name="find_string" value="${find_string}" class="form-control" placeholder="请输入教师工号或姓名">
+						<input type="text" name="find_string" value="${find_string}" class="form-control" placeholder="请输入教师人事工号或姓名">
 	      					<span class="input-group-btn">
 	        					<button type="submit" class="btn btn-primary"style="font-size: 22px"><span class="glyphicon glyphicon-search"></span></button>
 	      					</span>
@@ -124,7 +124,7 @@
                     <th width="100px">财务工号</th>
                     <th width="50px">性别</th>
                     <th width="50px">职称</th>
-                    <th width="100px">所属部门</th>
+                    <th width="120px">所属部门</th>
                     <th width="100px">所属学科</th>
                     <th width="100px">教学专业</th>
                     <th>功能</th>
@@ -146,6 +146,7 @@
                        <td>${teacher.teacher_institute.institute_name}</td>
                        <td>${teacher.teacher_belong_subject.subject_name}</td> 
                        <td>${teacher.teacher_teachingProfession.teachingProfession_name}</td>
+                       <td><a href="admin/TeacherInfo.do?teacher_no=${teacher.teacher_no}"> 修改</a></td>
                 </c:forEach>
             </table>
        
@@ -155,12 +156,12 @@
         <ul class="pager">
             <p class="text-primary">第 ${page.currentPage} 页，共
                 ${page.totalPage} 页</p>
-            <li><a href="findAllPaper.do?currentPage=1"><span
+            <li><a href="findAllTeacher.do?currentPage=1"><span
                     class="glyphicon glyphicon-step-backward"></span>首页</a></li>
             <c:choose>
                 <c:when test="${page.currentPage - 1 > 0}">
                     <li><a
-                            href="findAllPaper.do?currentPage=${page.currentPage - 1}"><span
+                            href="findAllTeacher.do?currentPage=${page.currentPage - 1}"><span
                             class="glyphicon glyphicon-triangle-left"></span>上一页</a></li>
                 </c:when>
                 <c:when test="${page.currentPage - 1 <= 0}">
@@ -171,7 +172,7 @@
             <c:choose>
                 <c:when test="${page.currentPage + 1 <= page.totalPage}">
                     <li><a
-                            href="findAllPaper.do?currentPage=${page.currentPage + 1}">下一页<span
+                            href="findAllTeacher.do?currentPage=${page.currentPage + 1}">下一页<span
                             class="glyphicon glyphicon-triangle-right"></span></a></li>
                 </c:when>
                 <c:when test="${page.currentPage + 1 > page.totalPage}">
@@ -180,7 +181,7 @@
                     </a></li>
                 </c:when>
             </c:choose>
-            <li><a href="findAllPaper.do?currentPage=${page.totalPage}">尾页<span
+            <li><a href="findAllTeacher.do?currentPage=${page.totalPage}">尾页<span
                     class="glyphicon glyphicon-step-forward"></span></a></li>
         </ul>
         </div>

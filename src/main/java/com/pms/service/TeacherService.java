@@ -55,5 +55,7 @@ public interface TeacherService {
 	
 	public List<Teacher> findAllTeacher(Page page);
 	
+	public List<Teacher> findAllTeacherMessage();
+	
 
 }
