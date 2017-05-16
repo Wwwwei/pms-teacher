@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@page import="pms.entity.Teacher" %>
+    <%@page import="com.pms.entity.Teacher" %>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>论文成果录入</title>
@@ -438,7 +438,7 @@
 <input type="hidden" value="${requestScope.teacher.teacher_name}"
        id="teacher_name"/>
 <input type="hidden"
-       value="${requestScope.teacher.teacher_university}"
+       value="${requestScope.teacher.teacher_institute.institute_name}"
        id="teacher_office"/>
 
 

@@ -1,6 +1,7 @@
 package com.pms.dao;
 
 
+import com.pms.entity.Paper;
 import com.pms.entity.Teacher;
 
 import java.util.List;
@@ -50,5 +51,7 @@ public interface TeacherMapper {
 	public int updateTeacherSubject(int subject_id);
 	
 	public int updateTeacherTitle(int title_id);
+	
+	public List<Teacher> findAllTeacherByPage(Map<String, Object> params);
 
 }

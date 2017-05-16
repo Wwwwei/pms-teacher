@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pms.common.enums.PaperPublishTypeEnum;
 import com.pms.util.CryptoUtil;
+import com.pms.util.DateUtil;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,7 +56,7 @@ public class AdminHandler {
     
     @Resource(name = "titleServiceImpl")
     private TitleService titleService;
-
+    
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public String login(Admin admin, HttpSession session, HttpServletRequest request) {
         if ((Admin) session.getAttribute("admin") != null) {
@@ -562,10 +564,50 @@ public class AdminHandler {
         }
         try {
             List<Teacher> teachers = teacherService.getTeacherFromExcel(file.getInputStream());
-            if (teacherService.insertTeacher(teachers, true))
-                result.put("status", "录入教师信息成功！");
-            else
-                result.put("status", "录入教师信息失败，请重新尝试！");
+            for(int i=0;i<teachers.size();i++)
+            {
+            	Teacher teacher=teachers.get(i);
+            	if(teacher.getTeacher_belong_subject()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的所属学科信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_institute()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的所属部门信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_title()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的职称信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_teachingProfession()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的教学专业信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_birth()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的生日信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_comeTime()==null)
+                	{
+            		result.put("status", teacher.getTeacher_name()+"教师的来工大时间信息有误！请检查重新输入！");
+            		break;
+                }
+            	else
+            	{
+            		 if (teacherService.insertTeacher(teachers, true))
+                         result.put("status", "录入教师信息成功！");
+                     else
+                         result.put("status", "录入教师信息失败，请重新尝试！");
+            	}
+              }
+            	
+            
+            
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -617,6 +659,11 @@ public class AdminHandler {
     public String updateTeacherInfo(HttpSession session) {
         if (session.getAttribute("admin") == null)
             return "redirect:/loginAdmin.jsp";
+		Page page = new Page();
+		page.setCurrentPage(1);
+		List<Teacher> teachers = teacherService.findAllTeacher(page);
+		session.setAttribute("page", page);
+		session.setAttribute("teachers", teachers);
         return "admin/updateTeacherInfo";
     }
 
