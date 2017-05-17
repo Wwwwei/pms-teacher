@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pms.common.enums.PaperPublishTypeEnum;
 import com.pms.util.CryptoUtil;
+import com.pms.util.DateUtil;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,7 +56,7 @@ public class AdminHandler {
     
     @Resource(name = "titleServiceImpl")
     private TitleService titleService;
-
+    
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public String login(Admin admin, HttpSession session, HttpServletRequest request) {
         if ((Admin) session.getAttribute("admin") != null) {
@@ -69,6 +71,26 @@ public class AdminHandler {
             return "redirect:/loginAdmin.jsp";
         }
     }
+    /**
+	 * 根据页码分页查询
+	 *
+	 * @param session
+	 * @param request
+	 * @param currentPage
+	 * @return
+	 */
+	@RequestMapping(value = "/findAllTeacher", method = RequestMethod.GET)
+	public String findAllPaper(HttpSession session, HttpServletRequest request,
+							   @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		Page page = new Page();
+		page.setCurrentPage(currentPage);
+		session.setAttribute("currentPage", currentPage);
+		List<Teacher> teachers = teacherService.findAllTeacher(page);
+		session.setAttribute("teachers", teachers);
+		session.setAttribute("page", page);
+		return "admin/updateTeacherInfo";
+
+	}
 
     @RequestMapping(value = "/admin/deletePaperById", method = RequestMethod.GET)
     public String deletePaperById(@RequestParam(value = "paper_id") int paper_id, HttpSession session,
@@ -550,6 +572,181 @@ public class AdminHandler {
         return null;
 
     }
+    
+    @SuppressWarnings("deprecation")
+    @RequestMapping(value = "/exportTeacher", method = RequestMethod.GET)
+    public ModelAndView exportTeacher(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        @SuppressWarnings("unchecked")
+        List<Teacher> teachers =teacherService.findAllTeacherMessage();
+        // 获取总列数
+        int CountColumnNum = 21; //xls.size();
+        // 创建Excel文档
+        @SuppressWarnings("resource")
+        HSSFWorkbook hwb = new HSSFWorkbook();
+
+        // sheet 对应一个工作页
+        HSSFSheet sheet = hwb.createSheet("教师表");
+
+        //第一个工作页的内容
+        HSSFRow firstrow = sheet.createRow(0); // 下标为0的行开始
+        HSSFCell[] firstcell = new HSSFCell[CountColumnNum];
+        String[] names = new String[CountColumnNum];
+        names[0] = "教师工号";
+        names[1] = "财务工号";
+        names[2] = "教师姓名";
+        names[3] = "教师性别";
+        names[4] = "教师邮箱";
+        names[5] = "手机号码";
+        names[6] = "办公电话";
+        names[7] = "教师职称";
+        names[8] = "教师生日";
+        names[9] = "QQ号码";
+        names[10] = "身份证号码";
+        names[11] = "来工大时间";
+        names[12] = "毕业院校";
+        names[13] = "教师评价";
+        names[14] = "个人主页";
+        names[15] = "谷歌主页";
+        names[16] = "所属学科";
+        names[17] = "教学科目";
+        names[18] = "研究方向";
+        names[19] = "所属部门";
+        names[20] = "是教学专业";
+        for (int j = 0; j < CountColumnNum; j++) {
+            firstcell[j] = firstrow.createCell((short) j);
+            firstcell[j].setCellValue(new HSSFRichTextString(names[j]));
+        }
+        int a = 0;
+        for (int i = 0; i < teachers.size(); i++) {
+            // 创建一行
+            HSSFRow row = sheet.createRow(++a);
+            for (int colu = 0; colu <= CountColumnNum; colu++) {
+                // 在一行内循环
+                HSSFCell teacher_no = row.createCell((short) 0);
+                teacher_no.setCellValue(teachers.get(i).getTeacher_no());
+
+                HSSFCell teacher_finance_no = row.createCell((short) 1);
+                teacher_finance_no.setCellValue(teachers.get(i).getTeacher_finance_no());
+
+                HSSFCell teacher_name = row.createCell((short) 2);
+                teacher_name.setCellValue(teachers.get(i).getTeacher_name());
+
+                HSSFCell teacher_sex = row.createCell((short) 3);
+                String sex = null;
+                if (teachers.get(i).getTeacher_sex() == 0) {
+                    sex = "女";
+                }
+                if (teachers.get(i).getTeacher_sex()== 1) {
+                    sex = "男";
+                }
+                teacher_sex.setCellValue(sex);
+                
+                HSSFCell teacher_email = row.createCell((short) 4);
+                teacher_email.setCellValue(teachers.get(i).getTeacher_email());
+                
+                HSSFCell teacher_phoneNumber = row.createCell((short) 5);
+                teacher_phoneNumber.setCellValue(teachers.get(i).getTeacher_phoneNumber());
+                
+                HSSFCell teacher_officeNumber = row.createCell((short) 6);
+                teacher_officeNumber.setCellValue(teachers.get(i).getTeacher_officeNumber());
+
+                HSSFCell teacher_title= row.createCell((short) 7);
+                teacher_title.setCellValue(teachers.get(i).getTeacher_title().getTitle_name());
+
+                HSSFCell teacher_birth = row.createCell((short) 8);
+                teacher_birth.setCellValue(teachers.get(i).getTeacher_birth());
+                
+                HSSFCell teacher_QQ = row.createCell((short) 9);
+                teacher_QQ.setCellValue(teachers.get(i).getTeacher_qq());
+                
+                HSSFCell teacher_idCard = row.createCell((short) 10);
+                teacher_idCard.setCellValue(teachers.get(i).getTeacher_idCard());
+                
+                HSSFCell teacher_comeTime = row.createCell((short) 11);
+                teacher_comeTime.setCellValue(teachers.get(i).getTeacher_comeTime());
+                
+                HSSFCell teacher_graUniversity = row.createCell((short) 12);
+                teacher_graUniversity.setCellValue(teachers.get(i).getTeacher_graUniversity());
+                
+                HSSFCell teacher_info = row.createCell((short) 13);
+                teacher_info.setCellValue(teachers.get(i).getTeacher_info());
+                
+                HSSFCell teacher_info_url = row.createCell((short) 14);
+                teacher_info_url.setCellValue(teachers.get(i).getTeacher_info_url());
+                
+                HSSFCell teacher_google_scolar_url = row.createCell((short) 15);
+                teacher_google_scolar_url.setCellValue(teachers.get(i).getTeacher_google_scolar_url());
+                
+                HSSFCell teacher_belong_subject = row.createCell((short) 16);
+                teacher_belong_subject.setCellValue(teachers.get(i).getTeacher_belong_subject().getSubject_name());
+
+                HSSFCell teacher_subject = row.createCell((short) 17);
+                teacher_subject.setCellValue(teachers.get(i).getTeacher_subject());
+        
+                HSSFCell teacher_subject_study = row.createCell((short) 18);
+                teacher_subject_study.setCellValue(teachers.get(i).getTeacher_subject_study());
+                
+                HSSFCell teacher_institute = row.createCell((short) 19);
+                teacher_institute.setCellValue(teachers.get(i).getTeacher_institute().getInstitute_name());
+                
+                HSSFCell teacher_teachingProfession = row.createCell((short) 20);
+                teacher_teachingProfession.setCellValue(teachers.get(i).getTeacher_teachingProfession().getTeachingProfession_name());
+            }   
+        }
+        try {
+//            OutputStream out = new FileOutputStream("E:teacher.xls");
+            //OutputStream out = new FileOutputStream("/Users/zhaogx/Downloads/论文.xls");
+            OutputStream out = new FileOutputStream("/paper/download/teacher.xls");
+            hwb.write(out);
+            out.close();
+        } catch (Exception ex) {
+
+
+        }
+//		File file = new File("E:teacher.xls");
+//		File file = new File("/Users/zhaogx/Downloads/论文.xls");
+        File file = new File("/paper/download/teacher.xls");
+        if (file.exists()) {
+            response.setContentType("application/force-download");// 设置强制下载不打开
+            response.addHeader("Content-Disposition", "attachment;fileName=file.xls");// 设置文件名
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            try {
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                OutputStream os = response.getOutputStream();
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer, 0, i);
+                    i = bis.read(buffer);
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        return null;
+
+    }
 
     @ResponseBody
     @RequestMapping(value = "/admin/insertTeacher", method = RequestMethod.POST)
@@ -562,10 +759,50 @@ public class AdminHandler {
         }
         try {
             List<Teacher> teachers = teacherService.getTeacherFromExcel(file.getInputStream());
-            if (teacherService.insertTeacher(teachers, true))
-                result.put("status", "录入教师信息成功！");
-            else
-                result.put("status", "录入教师信息失败，请重新尝试！");
+            for(int i=0;i<teachers.size();i++)
+            {
+            	Teacher teacher=teachers.get(i);
+            	if(teacher.getTeacher_belong_subject()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的所属学科信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_institute()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的所属部门信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_title()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的职称信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_teachingProfession()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的教学专业信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_birth()==null)
+            	{
+            		result.put("status", teacher.getTeacher_name()+"教师的生日信息有误！请检查重新输入！");
+            		break;
+            	}
+            	else if(teacher.getTeacher_comeTime()==null)
+                	{
+            		result.put("status", teacher.getTeacher_name()+"教师的来工大时间信息有误！请检查重新输入！");
+            		break;
+                }
+            	else
+            	{
+            		 if (teacherService.insertTeacher(teachers, true))
+                         result.put("status", "录入教师信息成功！");
+                     else
+                         result.put("status", "录入教师信息失败，请重新尝试！");
+            	}
+              }
+            	
+            
+            
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -617,6 +854,11 @@ public class AdminHandler {
     public String updateTeacherInfo(HttpSession session) {
         if (session.getAttribute("admin") == null)
             return "redirect:/loginAdmin.jsp";
+		Page page = new Page();
+		page.setCurrentPage(1);
+		List<Teacher> teachers = teacherService.findAllTeacher(page);
+		session.setAttribute("page", page);
+		session.setAttribute("teachers", teachers);
         return "admin/updateTeacherInfo";
     }
 
@@ -632,6 +874,25 @@ public class AdminHandler {
         request.setAttribute("teachingProfession", teachingProfession);
         request.setAttribute("institutes", institutes);
         request.setAttribute("find_string", find_string);
+        request.setAttribute("isFindTeacher", true);
+        request.setAttribute("teacher", teacher);
+        request.setAttribute("subject", subject);
+        request.setAttribute("title", title);
+        return "admin/updateTeacherInfo";
+    }
+    
+    @RequestMapping(value = "/admin/TeacherInfo", method = RequestMethod.GET)
+    public String TeacherInfo(@RequestParam(value = "teacher_no") String teacher_no, HttpServletRequest request, HttpSession session) {
+        if (session.getAttribute("admin") == null)
+            return "redirect:/loginAdmin.jsp";
+        Teacher teacher = teacherService.findTeacher(teacher_no);
+        List<Institute> institutes = instituteService.getAllInstitute();
+        List<TeachingProfession> teachingProfession = teachingProfessionService.getAllTeachingProfession();
+        List<Subject> subject = subjectService.getAllSubject();
+        List<Title> title=titleService.getAllTitle();
+        request.setAttribute("teachingProfession", teachingProfession);
+        request.setAttribute("institutes", institutes);
+        request.setAttribute("teacher_no", teacher_no);
         request.setAttribute("isFindTeacher", true);
         request.setAttribute("teacher", teacher);
         request.setAttribute("subject", subject);

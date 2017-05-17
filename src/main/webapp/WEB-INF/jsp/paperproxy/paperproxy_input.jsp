@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%--<%@page import="com.pms.entity.Teacher" %>--%>
+    <%@page import="com.pms.entity.Teacher" %>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>论文成果录入</title>

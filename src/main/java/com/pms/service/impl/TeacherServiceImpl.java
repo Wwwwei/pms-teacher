@@ -13,6 +13,7 @@ import com.pms.service.SubjectService;
 import com.pms.service.TeachingProfessionService;
 import com.pms.service.TitleService;
 import com.pms.util.CryptoUtil;
+import com.pms.util.DateUtil;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -137,8 +138,8 @@ public class TeacherServiceImpl implements TeacherService {
 					int teacher_sex = 0;
 					if (teacher_sex_str.trim().equals("男"))
 						teacher_sex = 1;
-//					teacher_birth = DateUtil.changeDateFormat(teacher_birth);
-//					teacher_comeTime = DateUtil.changeDateFormat(teacher_comeTime);
+					teacher_birth = DateUtil.changeDateFormat(teacher_birth);
+				    teacher_comeTime = DateUtil.changeDateFormat(teacher_comeTime);
 					Institute teacher_institute = instituteService.getInstitue(teacher_institute_name.trim());
 					TeachingProfession teachingProfession=teachingProfessionService.getTeachingProfession(teacher_teachingProfession_name.trim());
 					Subject subject=subjectService.getSubject(teacher_belong_subject_name.trim());
@@ -210,6 +211,18 @@ public class TeacherServiceImpl implements TeacherService {
 		if (teacherMapper.updateTeacher(teacher) == 1)
 			return true;
 		return false;
+	}
+	
+	@Override
+	public List<Teacher> findAllTeacher(Page page) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("page", page);
+		return teacherMapper.findAllTeacherByPage(params);
+	}
+	
+	@Override
+	public List<Teacher> findAllTeacherMessage() {
+		return teacherMapper.findAllTeacherMessage();
 	}
 
 }

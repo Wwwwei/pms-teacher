@@ -53,5 +53,9 @@ public interface TeacherService {
 	
 	public boolean updateTeacher(Teacher teacher);
 	
+	public List<Teacher> findAllTeacher(Page page);
+	
+	public List<Teacher> findAllTeacherMessage();
+	
 
 }

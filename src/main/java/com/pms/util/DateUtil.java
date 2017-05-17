@@ -32,7 +32,7 @@ public class DateUtil {
 	}
 
 	public static String changeDateFormat(String dateStr) {
-		String[] dates = dateStr.split("/");
+		String[] dates = dateStr.split("-");
 		StringBuilder sb =new StringBuilder();
 		if (dates.length != 3)
 			return null;
@@ -45,7 +45,12 @@ public class DateUtil {
 				return null;
 			if(i==0) sb.append(dates[i]);
 			if(i>0)
+			{
+				if(dates[i].contains("0"))
+				sb.append("-"+dates[i]);
+				if(!dates[i].contains("0"))
 				sb.append("-"+(Integer.valueOf(dates[i])<10?"0"+dates[i]:dates[i]));
+			}
 		}
 		return sb.toString();
 	}

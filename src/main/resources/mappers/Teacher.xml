@@ -81,5 +81,20 @@
 		update teacher set teacher_title_id=1
 		where teacher_title_id=#{title_id}
 	</update>
+	
+	<select id="findAllTeacherByPage" parameterType="java.util.Map"
+			resultMap="pms.entity.EntityMapper.TeacherBean">
+		select t.*,i.* ,f.*,s.* ,ti.*from teacher t,institute i,teachingprofession f,subject s,title ti
+		<where>
+			t.teacher_institute_id=i.institute_id and t.teacher_teachingprofession_id=f.teachingprofession_id and t.teacher_belong_subject_id=s.subject_id and t.teacher_title_id=ti.title_id
+		</where>
+	</select>	
+	<select id="findAllTeacherMessage" 
+			resultMap="pms.entity.EntityMapper.TeacherBean">
+		select t.*,i.* ,f.*,s.* ,ti.*from teacher t,institute i,teachingprofession f,subject s,title ti
+		<where>
+			t.teacher_institute_id=i.institute_id and t.teacher_teachingprofession_id=f.teachingprofession_id and t.teacher_belong_subject_id=s.subject_id and t.teacher_title_id=ti.title_id
+		</where>
+	</select>
 
 </mapper>
