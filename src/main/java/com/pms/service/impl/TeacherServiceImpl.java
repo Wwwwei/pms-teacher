@@ -163,7 +163,7 @@ public class TeacherServiceImpl implements TeacherService {
 		// TODO Auto-generated method stub
 		String teacher_no = teacher.getTeacher_no();
 		String teacher_salt = CryptoUtil.getSalt();
-		String teacher_password = CryptoUtil.SHA1(teacher_no);
+		String teacher_password = CryptoUtil.SHA1("123456");
 		teacher_password = CryptoUtil.getHash(teacher_password, teacher_salt);
 		teacher.setTeacher_password(teacher_password);
 		teacher.setTeacher_salt(teacher_salt);
@@ -223,6 +223,14 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public List<Teacher> findAllTeacherMessage() {
 		return teacherMapper.findAllTeacherMessage();
+	}
+	
+	public boolean deleteTeacher(int teacher_id) {
+		if (teacherMapper.deleteTeacher(teacher_id)!=0)
+		{
+			return true;
+		}
+		return false;
 	}
 
 }

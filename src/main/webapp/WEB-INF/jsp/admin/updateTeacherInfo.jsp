@@ -25,7 +25,6 @@
 		$("#resetPassword").click(function() {
 			var teacher_no = $("#teacher_no").val();
 			var teacher_id = $("#teacher_id").val();
-			alert(123);
 			$.ajax({
 				url : "admin/resetPassword.do",
 				type : 'POST',
@@ -49,12 +48,11 @@
 					alert("网络错误，请重新尝试！");
 				}
 			});
-		});
-
+		});		
 
 		var teacher_sex_value = "${teacher.teacher_sex}";
 		$("#teacher_sex").val(teacher_sex_value);
-
+		
 		var teacher_institute_id_value = "${teacher.teacher_institute.institute_id}";
 		$("#teacher_institute").val(teacher_institute_id_value);
 
@@ -76,7 +74,6 @@
 
 <!--导航条开始-->
 <jsp:include page="head.jsp"/>
-
 <div class="container" style="margin-top: 5%;min-height:450px">
 	<div class="row">
 		<table class="table" style="border-color: #FFFFFF">
@@ -146,7 +143,8 @@
                        <td>${teacher.teacher_institute.institute_name}</td>
                        <td>${teacher.teacher_belong_subject.subject_name}</td> 
                        <td>${teacher.teacher_teachingProfession.teachingProfession_name}</td>
-                       <td><a href="admin/TeacherInfo.do?teacher_no=${teacher.teacher_no}"> 修改</a></td>
+                       <td><a href="admin/TeacherInfo.do?teacher_no=${teacher.teacher_no}"> 修改</a>
+                           <a href="admin/deleteTeacher.do?teacher_id=${teacher.teacher_id}"> 删除</a></td>
                 </c:forEach>
             </table>
        
@@ -322,6 +320,9 @@
 				</form>
 				<div class="col-lg-3">
 					<button  class="btn btn-danger" id="resetPassword">重置密码</button>
+				</div>				
+				<div class="col-lg-3">
+					<a href="admin/deleteTeacher.do?teacher_id=${teacher.teacher_id}" class="btn btn-danger">确认删除</a>
 				</div>
 
 			</c:if>
