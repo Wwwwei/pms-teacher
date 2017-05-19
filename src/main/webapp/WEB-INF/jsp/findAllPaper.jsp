@@ -12,9 +12,13 @@
 <base href="<%=basePath%>">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="css/pms.css"/>
-<script type="text/javascript" src="js/common/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/common/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="js/common/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/softwareCopyright.js"></script>
+<!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
+<link rel="stylesheet" href="css/bootstrap-select.css">
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap-select.js"></script>
 <script type="text/javascript">
     // function findSoftwareCopyright(){
     // 	alert("模块正在开发中，敬请期待！");
@@ -165,8 +169,8 @@
 </head>
 <body>
 <!--导航条开始-->
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid" style="margin-left: 5%; margin-right: 5%;">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" >
+    <div class="container-fluid"  style="margin-left: 5%; margin-right: 5%;">
         <div class="navbar-header ">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#bar">
@@ -271,13 +275,13 @@
                                     <label>录入作者</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <select id="teacher_id" name="teacher_id" class="form-control">
+                                    <select id="teacher_id" name="teacher_id" class="selectpicker show-tick form-control" data-live-search="true">
                                         <option value="0" selected="selected">----请选择----</option>
                                         <c:forEach var="teacher" begin="0" step="1"
-                                                   items="${teachers}">
+                                                    items="${teachers}">
                                             <option value="${teacher.teacher_id}">${teacher.teacher_name}</option>
-                                        </c:forEach>
-                                    </select>
+                                      </c:forEach> 
+                                  </select>
                                 </div>
                                 <div class="hidden-lg hidden-md">
                                     <br>

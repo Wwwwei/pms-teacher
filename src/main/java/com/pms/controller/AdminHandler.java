@@ -17,6 +17,7 @@ import com.pms.util.CryptoUtil;
 import com.pms.util.DateUtil;
 
 import javax.annotation.Resource;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -933,12 +934,21 @@ public class AdminHandler {
             result = "admin_not_login";
             return result;
         }
-        String sha1_password = CryptoUtil.SHA1(teacher_no.trim());
+        String sha1_password = CryptoUtil.SHA1("123456");
         if (teacherService.updatePassword(teacher_id, sha1_password))
             result = "success";
         else
             result = "resetPassword_error";
         return result;
+    }
+    
+    @RequestMapping(value = "/admin/deleteTeacher", method = RequestMethod.GET)
+    public String resetPassword(@RequestParam(value = "teacher_id") int teacher_id,
+                                HttpSession session,HttpServletRequest request) {
+    	if (session.getAttribute("admin") == null)
+    	return "redirect:/loginAdmin.jsp";	
+		teacherService.deleteTeacher(teacher_id);
+	 return "redirect:/admin/updateTeacherInfo.do";
     }
 
     @ResponseBody

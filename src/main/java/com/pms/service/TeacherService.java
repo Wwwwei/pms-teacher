@@ -57,5 +57,7 @@ public interface TeacherService {
 	
 	public List<Teacher> findAllTeacherMessage();
 	
+	public boolean deleteTeacher(int teacher_id);
+	
 
 }

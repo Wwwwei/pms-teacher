@@ -55,4 +55,6 @@ public interface TeacherMapper {
 	public List<Teacher> findAllTeacherByPage(Map<String, Object> params);
 
 	public List<Teacher> findAllTeacherMessage();
+	
+	public int deleteTeacher(int teacher_id);
 }
