@@ -437,11 +437,12 @@
        id="teacher_no"/>
 <input type="hidden" value="${requestScope.teacher.teacher_name}"
        id="teacher_name"/>
+<%--<input type="hidden"--%>
+<%--value="${requestScope.teacher.teacher_institute.institute_name}"--%>
+<%--id="teacher_office"/>--%>
 <input type="hidden"
-       value="${requestScope.teacher.teacher_institute.institute_name}"
+       value="浙江工业大学"
        id="teacher_office"/>
-
-
 <!--footer开始-->
 <jsp:include page="../../../layout/footer.jsp"/>
 <!--footer结束-->
