@@ -9,15 +9,17 @@ function showAuthorIDByAuthorType(type, authorRank) {
         $("input#AuthorOffice" + authorRank).val("");
         $("input#AuthorID" + authorRank).attr("disabled", true);
         $("input#AuthorOffice" + authorRank).attr("disabled", true);
+        $("input#AuthorOffice" + authorRank).attr("readonly", false);
     } else if (type == 1) {
         $("input#AuthorID" + authorRank).attr("disabled", false);
-        $("input#AuthorOffice" + authorRank).attr("disabled", true);
+        $("input#AuthorOffice" + authorRank).attr("readonly", true);
         $("input#AuthorOffice" + authorRank).val("浙江工业大学");
     } else {
         $("input#AuthorID" + authorRank).val("");
         $("input#AuthorOffice" + authorRank).val("");
         $("input#AuthorID" + authorRank).attr("disabled", false);
         $("input#AuthorOffice" + authorRank).attr("disabled", false);
+        $("input#AuthorOffice" + authorRank).attr("readonly", false);
     }
 }
 // 作者上移下移操作 upORdown=0,上移;upORdown=1，下移
@@ -112,13 +114,13 @@ function authorsWrite() {
                 true);
             $("input#AuthorID" + authorRank).attr("disabled", false);
             $("input#AuthorOffice" + authorRank).attr("disabled", false);
-
+            $("input#AuthorOffice" + authorRank).attr("readonly", false);
         } else if (author.type == 3) {
             $("input#authorType" + authorRank + "[value='3']").attr("checked",
                 true);
             $("input#AuthorID" + authorRank).attr("disabled", false);
             $("input#AuthorOffice" + authorRank).attr("disabled", false);
-
+            $("input#AuthorOffice" + authorRank).attr("readonly", false);
         } else if (author.type == 2) {
             $("input#authorType" + authorRank + "[value='2']").attr("checked",
                 true);
@@ -126,12 +128,13 @@ function authorsWrite() {
             $("input#AuthorOffice" + authorRank).val("");
             $("input#AuthorID" + authorRank).attr("disabled", true);
             $("input#AuthorOffice" + authorRank).attr("disabled", true);
+            $("input#AuthorOffice" + authorRank).attr("readonly", false);
         } else if (author.type == 1) {
             $("input#authorType" + authorRank + "[value=1]").attr("checked",
                 true);
             $("input#AuthorOffice" + authorRank).val("浙江工业大学");
             $("input#AuthorID" + authorRank).attr("disabled", false);
-            $("input#AuthorOffice" + authorRank).attr("disabled", true);
+            $("input#AuthorOffice" + authorRank).attr("readonly", true);
         }
     }
 }
