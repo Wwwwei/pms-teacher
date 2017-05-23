@@ -9,7 +9,13 @@ function showAuthorIDByAuthorType(type, authorRank) {
         $("input#AuthorOffice" + authorRank).val("");
         $("input#AuthorID" + authorRank).attr("disabled", true);
         $("input#AuthorOffice" + authorRank).attr("disabled", true);
+    } else if (type == 1) {
+        $("input#AuthorID" + authorRank).attr("disabled", false);
+        $("input#AuthorOffice" + authorRank).attr("disabled", true);
+        $("input#AuthorOffice" + authorRank).val("浙江工业大学");
     } else {
+        $("input#AuthorID" + authorRank).val("");
+        $("input#AuthorOffice" + authorRank).val("");
         $("input#AuthorID" + authorRank).attr("disabled", false);
         $("input#AuthorOffice" + authorRank).attr("disabled", false);
     }
@@ -78,6 +84,9 @@ function authorsRead() {
             author.id = $("input#AuthorID" + authorRank).val();
             author.office = $("input#AuthorOffice" + authorRank).val();
             author.type = $("input#authorType" + authorRank + ":checked").val();
+            if (author.type == null) {
+                author.type = 1;
+            }
         }
         if (!(authorRank == RANK)) {
             authors.push(author);
@@ -120,8 +129,9 @@ function authorsWrite() {
         } else if (author.type == 1) {
             $("input#authorType" + authorRank + "[value=1]").attr("checked",
                 true);
+            $("input#AuthorOffice" + authorRank).val("浙江工业大学");
             $("input#AuthorID" + authorRank).attr("disabled", false);
-            $("input#AuthorOffice" + authorRank).attr("disabled", false);
+            $("input#AuthorOffice" + authorRank).attr("disabled", true);
         }
     }
 }
@@ -232,6 +242,7 @@ function showAuthorInputList(paperproxy_id) {
                                 authorResult[i].author_no);
                             $("input#AuthorOffice" + authorResult[i].author_rank)
                                 .val(authorResult[i].author_office);
+                            $("input#AuthorOffice" + authorResult[i].author_rank).attr("disabled", true);
                             break;
                         case 2:
                             $(
