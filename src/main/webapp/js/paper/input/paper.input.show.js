@@ -376,7 +376,6 @@ function showAuthorInputList(paperproxy_id) {
                         + "<th>作者单位</th>"
                         + "</tr>"
                         + "</thead>";
-
                     authorResult = JSON.parse(htmlobj.responseText);
                     for (var i in authorResult) {
                         addText += "<tr><td>" + authorResult[i].author_rank + "</td>";
