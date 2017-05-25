@@ -296,11 +296,14 @@ function authorsRead() {
             author.office = $("input#teacher_office").val();
             author.id = $("input#teacher_no").val();
             author.type = 1;
+            author.isCorrespondent = 1;
             author_temp.rank = RANK;
             author_temp.name = $("input#AuthorName" + authorRank).val();
             author_temp.id = $("input#AuthorID" + authorRank).val();
             author_temp.office = $("input#AuthorOffice" + authorRank).val();
             author_temp.type = $("input#authorType" + authorRank + ":checked")
+                .val();
+            author_temp.isCorrespondent = $("input#authorIsCorrespondent" + authorRank + ":checked")
                 .val();
             authors.push(author_temp);
         } else {
@@ -308,6 +311,7 @@ function authorsRead() {
             author.id = $("input#AuthorID" + authorRank).val();
             author.office = $("input#AuthorOffice" + authorRank).val();
             author.type = $("input#authorType" + authorRank + ":checked").val();
+            author.isCorrespondent = $("input#authorIsCorrespondent" + authorRank + ":checked").val();
             if (author.type == null) {
                 author.type = 1;
             }
@@ -326,6 +330,13 @@ function authorsWrite() {
         $("input#AuthorName" + authorRank).val(author.name);
         $("input#AuthorID" + authorRank).val(author.id);
         $("input#AuthorOffice" + authorRank).val(author.office);
+        if (author.isCorrespondent == 0) {
+            $("input#authorIsCorrespondent" + authorRank + "[value='0']").attr("checked",
+                true);
+        } else if (author.isCorrespondent == 1) {
+            $("input#authorIsCorrespondent" + authorRank + "[value='1']").attr("checked",
+                true);
+        }
         if (author.type == 4) {
             $("input#authorType" + authorRank + "[value='4']").attr("checked",
                 true);
@@ -362,7 +373,7 @@ function authorList() {
     var rank = $("input#rank").val();
     // 判断是否是数字,若为数字则显示作者表单，否则提示
     if (isNaN(authorNumber) == false) {
-        var addText = "<div class='table-responsive'><table width='100%' class='table table-hover'><thead><tr><th>作者排名</th><th>作者姓名</th><th>作者类型</th><th>工号/学号</th><th>作者单位</th></tr></thead>";
+        var addText = "<div class='table-responsive'><table width='100%' class='table table-hover'><thead><tr><th>作者排名</th><th>作者姓名</th><th>作者类型</th><th>是否通信作者</th><th>工号/学号</th><th>作者单位</th></tr></thead>";
         for (var i = 0; i < authorNumber; i++) {
             // 作者排名
             var authorRank = (i + 1);
@@ -395,6 +406,17 @@ function authorList() {
                 + authorRank
                 + "' value='4' onclick='showAuthorIDByAuthorType(4,"
                 + authorRank + ");' />本科生</label>";
+            //是否通讯作者
+            var authorIsCorrespondent = "<label class='radio-inline'style='margin-top:5px'><input type='radio' name='authorIsCorrespondent"
+                + authorRank
+                + "'  id='authorIsCorrespondent"
+                + authorRank
+                + "' value='1'/>是</label>";
+            var authorIsCorrespondent = authorIsCorrespondent + "<label class='radio-inline'style='margin-top:5px'><input type='radio' name='authorIsCorrespondent"
+                + authorRank
+                + "'  id='authorIsCorrespondent"
+                + authorRank
+                + "' value='0' checked='checked'/>否</label>";
             // 作者工号/学号（外校类型不填）
             var authorID = "<input type='text' name='authorID" + authorRank
                 + "' id='AuthorID" + authorRank + "' class='form-control'>";
@@ -425,7 +447,7 @@ function authorList() {
             }
             addText = addText + "<tr><td>" + authorRank + "</td><td>"
                 + authorName + "</td><td>" + authorType1 + authorType2
-                + authorType3 + authorType4 + "</td><td>" + authorID
+                + authorType3 + authorType4 + "</td><td>" + authorIsCorrespondent + "</td><td>" + authorID
                 + "</td><td>" + authorOffice + "</td><td>"
                 + authorMoveButton + "</td></tr>";
         }
