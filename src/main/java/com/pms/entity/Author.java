@@ -14,6 +14,8 @@ public class Author {
 	private int author_rank;
 	private int author_type; // 作者类型(1:本校教师 2:外校教师 3:研究生 4:本科生)
 	private Paper author_paper;
+	private int author_is_correspondent;//是否通讯作者(0:不是;1:是)
+
 	public int getAuthor_id() {
 		return author_id;
 	}
@@ -56,7 +58,12 @@ public class Author {
 	public void setAuthor_paper(Paper author_paper) {
 		this.author_paper = author_paper;
 	}
-	
-	
 
+	public int getAuthor_is_correspondent() {
+		return author_is_correspondent;
+	}
+
+	public void setAuthor_is_correspondent(int author_is_correspondent) {
+		this.author_is_correspondent = author_is_correspondent;
+	}
 }

@@ -13,13 +13,13 @@
 			LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO
-		authorproxy(authorproxy_id,authorproxy_no,authorproxy_name,authorproxy_office,authorproxy_paper_id,authorproxy_rank,authorproxy_type)
-		VALUES(#{author_id},#{author_no},#{author_name},#{author_office},#{author_paper.paper_id},#{author_rank},#{author_type});
+		authorproxy(authorproxy_id,authorproxy_no,authorproxy_name,authorproxy_office,authorproxy_paper_id,authorproxy_rank,authorproxy_type,authorproxy_is_correspondent)
+		VALUES(#{author_id},#{author_no},#{author_name},#{author_office},#{author_paper.paper_id},#{author_rank},#{author_type},#{author_is_correspondent});
 	</insert>
 	<update id="update" parameterType="com.pms.entity.AuthorProxy">
 		UPDATE authorproxy
 		SET
-		authorproxy_no=#{author_no},authorproxy_name=#{author_name},authorproxy_office=#{author_office},authorproxy_rank=#{author_rank},authorproxy_paper_id=#{author_paper.paper_id},authorproxy_type=#{author_type}
+		authorproxy_no=#{author_no},authorproxy_name=#{author_name},authorproxy_office=#{author_office},authorproxy_rank=#{author_rank},authorproxy_paper_id=#{author_paper.paper_id},authorproxy_type=#{author_type},authorproxy_is_correspondent=#{author_is_correspondent}
 		WHERE authorproxy_id=#{author_id}
 	</update>
 

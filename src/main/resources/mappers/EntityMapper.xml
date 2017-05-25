@@ -11,7 +11,7 @@
         <result column="author_office" property="author_office"/>
         <result column="author_rank" property="author_rank"/>
         <result column="author_type" property="author_type"/>
-
+        <result column="author_is_correspondent" property="author_is_correspondent"/>
         <!-- 一对多的关系 -->
         <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
         <collection property="author_paper" resultMap="PaperBean"/>
@@ -164,6 +164,7 @@
         <result column="authorproxy_office" property="author_office"/>
         <result column="authorproxy_rank" property="author_rank"/>
         <result column="authorproxy_type" property="author_type"/>
+        <result column="authorproxy_is_correspondent" property="author_is_correspondent"/>
         <!-- 一对多的关系 -->
         <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
         <collection property="author_paper" resultMap="PaperProxyBean"/>

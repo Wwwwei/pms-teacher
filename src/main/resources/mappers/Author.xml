@@ -13,8 +13,8 @@
 			LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO
-		author(author_no,author_name,author_office,author_paper_id,author_rank,author_type)
-		VALUES(#{author_no},#{author_name},#{author_office},#{author_paper.paper_id},#{author_rank},#{author_type});
+		author(author_no,author_name,author_office,author_paper_id,author_rank,author_type,author_is_correspondent)
+		VALUES(#{author_no},#{author_name},#{author_office},#{author_paper.paper_id},#{author_rank},#{author_type},#{author_is_correspondent});
 	</insert>
 	<insert id="insert" parameterType="com.pms.entity.Author"
 			useGeneratedKeys="true" keyProperty="author_id">
@@ -24,13 +24,13 @@
 			LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO
-		author(author_id,author_no,author_name,author_office,author_paper_id,author_rank,author_type)
-		VALUES(#{author_id},#{author_no},#{author_name},#{author_office},#{author_paper.paper_id},#{author_rank},#{author_type});
+		author(author_id,author_no,author_name,author_office,author_paper_id,author_rank,author_type,author_is_correspondent)
+		VALUES(#{author_id},#{author_no},#{author_name},#{author_office},#{author_paper.paper_id},#{author_rank},#{author_type},#{author_is_correspondent});
 	</insert>
 	<update id="update" parameterType="com.pms.entity.Author">
 		UPDATE author
 		SET
-		author_no=#{author_no},author_name=#{author_name},author_office=#{author_office},author_rank=#{author_rank},author_paper_id=#{author_paper.paper_id},author_type=#{author_type}
+		author_no=#{author_no},author_name=#{author_name},author_office=#{author_office},author_rank=#{author_rank},author_paper_id=#{author_paper.paper_id},author_type=#{author_type},author_is_correspondent=#{author_is_correspondent}
 		WHERE author_id=#{author_id}
 	</update>
 	<delete id="deleteAuthorByPaperId" parameterType="int">
