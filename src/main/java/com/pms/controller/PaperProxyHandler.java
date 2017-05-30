@@ -206,6 +206,7 @@ public class PaperProxyHandler {
                 String authorID = request.getParameter("authorID" + i);
                 String authorOffice = request.getParameter("authorOffice" + i);
                 int authorType = Integer.parseInt(request.getParameter("authorType" + i));
+                int authorIsCorrespondent = Integer.parseInt(request.getParameter("authorIsCorrespondent" + i));
                 if (authorID != null) {
                     authorProxy.setAuthor_no(authorID);
                 }
@@ -214,6 +215,7 @@ public class PaperProxyHandler {
                 }
                 authorProxy.setAuthor_paper(paper);
                 authorProxy.setAuthor_type(authorType);
+                authorProxy.setAuthor_is_correspondent(authorIsCorrespondent);
                 //		authors.add(authorProxy);
                 authorProxyService.createAuthorProxy(authorProxy);
             }
@@ -392,6 +394,7 @@ public class PaperProxyHandler {
                 String authorID = request.getParameter("authorID" + i);
                 String authorOffice = request.getParameter("authorOffice" + i);
                 int authorType = Integer.parseInt(request.getParameter("authorType" + i));
+                int authorIsCorrespondent = Integer.parseInt(request.getParameter("authorIsCorrespondent" + i));
                 if (authorID != null) {
                     authorProxy.setAuthor_no(authorID);
                 }
@@ -400,6 +403,7 @@ public class PaperProxyHandler {
                 }
                 authorProxy.setAuthor_paper(paper);
                 authorProxy.setAuthor_type(authorType);
+                authorProxy.setAuthor_is_correspondent(authorIsCorrespondent);
                 // 当作者id为空时，表示新增加的作者信息
                 if (request.getParameter("author_id" + i) == "" || request.getParameter("author_id" + i) == null) {
                     authorProxy.setAuthor_name(request.getParameter("authorName" + i));
@@ -432,6 +436,7 @@ public class PaperProxyHandler {
                 String authorID = request.getParameter("authorID" + i);
                 String authorOffice = request.getParameter("authorOffice" + i);
                 int authorType = Integer.parseInt(request.getParameter("authorType" + i));
+                int authorIsCorrespondent = Integer.parseInt(request.getParameter("authorIsCorrespondent" + i));
                 if (authorID != null) {
                     authorProxy.setAuthor_no(authorID);
                 }
@@ -441,6 +446,7 @@ public class PaperProxyHandler {
                 authorProxy.setAuthor_paper(paper);
                 authorProxy.setAuthor_type(authorType);
                 authorProxy.setAuthor_id(Integer.valueOf(request.getParameter("author_id" + i)));
+                authorProxy.setAuthor_is_correspondent(authorIsCorrespondent);
 
                 for (AuthorProxy author : ex_authors) {
                     if (author.getAuthor_id() == authorProxy.getAuthor_id()) {

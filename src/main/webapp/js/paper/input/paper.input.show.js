@@ -371,11 +371,11 @@ function showAuthorInputList(paperproxy_id) {
                         + "<th>作者排名</th>"
                         + "<th>作者姓名</th>"
                         + "<th>作者类型</th>"
+                        + "<th>是否通信作者</th>"
                         + "<th>工号/学号</th>"
                         + "<th>作者单位</th>"
                         + "</tr>"
                         + "</thead>";
-
                     authorResult = JSON.parse(htmlobj.responseText);
                     for (var i in authorResult) {
                         addText += "<tr><td>" + authorResult[i].author_rank + "</td>";
@@ -392,6 +392,14 @@ function showAuthorInputList(paperproxy_id) {
                                 break;
                             case 4:
                                 addText += "<td>本科生 </td>";
+                                break;
+                        }
+                        switch (authorResult[i].author_is_correspondent) {
+                            case 0:
+                                addText += "<td>否</td>";
+                                break;
+                            case 1:
+                                addText += "<td>是</td>";
                                 break;
                         }
                         if (authorResult[i].author_type == 2) {

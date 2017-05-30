@@ -9,9 +9,17 @@ function showAuthorIDByAuthorType(type, authorRank) {
         $("input#AuthorOffice" + authorRank).val("");
         $("input#AuthorID" + authorRank).attr("disabled", true);
         $("input#AuthorOffice" + authorRank).attr("disabled", true);
+        $("input#AuthorOffice" + authorRank).attr("readonly", false);
+    } else if (type == 1) {
+        $("input#AuthorID" + authorRank).attr("disabled", false);
+        $("input#AuthorOffice" + authorRank).attr("readonly", true);
+        $("input#AuthorOffice" + authorRank).val("浙江工业大学");
     } else {
+        $("input#AuthorID" + authorRank).val("");
+        $("input#AuthorOffice" + authorRank).val("");
         $("input#AuthorID" + authorRank).attr("disabled", false);
         $("input#AuthorOffice" + authorRank).attr("disabled", false);
+        $("input#AuthorOffice" + authorRank).attr("readonly", false);
     }
 }
 // 作者上移下移操作 upORdown=0,上移;upORdown=1，下移
@@ -65,6 +73,7 @@ function authorsRead() {
             author.office = $("input#teacher_office").val();
             author.id = $("input#teacher_no").val();
             author.type = 1;
+            author.isCorrespondent = 1;
             author_temp.rank = RANK;
             author_temp.authorId = null;
             author_temp.name = $("input#AuthorName" + authorRank).val();
@@ -72,12 +81,18 @@ function authorsRead() {
             author_temp.office = $("input#AuthorOffice" + authorRank).val();
             author_temp.type = $("input#authorType" + authorRank + ":checked")
                 .val();
+            author_temp.isCorrespondent = $("input#authorIsCorrespondent" + authorRank + ":checked")
+                .val();
             authors.push(author_temp);
         } else {
             author.name = $("input#AuthorName" + authorRank).val();
             author.id = $("input#AuthorID" + authorRank).val();
             author.office = $("input#AuthorOffice" + authorRank).val();
             author.type = $("input#authorType" + authorRank + ":checked").val();
+            author.isCorrespondent = $("input#authorIsCorrespondent" + authorRank + ":checked").val();
+            if (author.type == null) {
+                author.type = 1;
+            }
         }
         if (!(authorRank == RANK)) {
             authors.push(author);
@@ -98,18 +113,25 @@ function authorsWrite() {
         $("input#AuthorName" + authorRank).val(author.name);
         $("input#AuthorID" + authorRank).val(author.id);
         $("input#AuthorOffice" + authorRank).val(author.office);
+        if (author.isCorrespondent == 0) {
+            $("input#authorIsCorrespondent" + authorRank + "[value='0']").attr("checked",
+                true);
+        } else if (author.isCorrespondent == 1) {
+            $("input#authorIsCorrespondent" + authorRank + "[value='1']").attr("checked",
+                true);
+        }
         if (author.type == 4) {
             $("input#authorType" + authorRank + "[value='4']").attr("checked",
                 true);
             $("input#AuthorID" + authorRank).attr("disabled", false);
             $("input#AuthorOffice" + authorRank).attr("disabled", false);
-
+            $("input#AuthorOffice" + authorRank).attr("readonly", false);
         } else if (author.type == 3) {
             $("input#authorType" + authorRank + "[value='3']").attr("checked",
                 true);
             $("input#AuthorID" + authorRank).attr("disabled", false);
             $("input#AuthorOffice" + authorRank).attr("disabled", false);
-
+            $("input#AuthorOffice" + authorRank).attr("readonly", false);
         } else if (author.type == 2) {
             $("input#authorType" + authorRank + "[value='2']").attr("checked",
                 true);
@@ -117,11 +139,13 @@ function authorsWrite() {
             $("input#AuthorOffice" + authorRank).val("");
             $("input#AuthorID" + authorRank).attr("disabled", true);
             $("input#AuthorOffice" + authorRank).attr("disabled", true);
+            $("input#AuthorOffice" + authorRank).attr("readonly", false);
         } else if (author.type == 1) {
             $("input#authorType" + authorRank + "[value=1]").attr("checked",
                 true);
+            $("input#AuthorOffice" + authorRank).val("浙江工业大学");
             $("input#AuthorID" + authorRank).attr("disabled", false);
-            $("input#AuthorOffice" + authorRank).attr("disabled", false);
+            $("input#AuthorOffice" + authorRank).attr("readonly", true);
         }
     }
 }
@@ -131,7 +155,7 @@ function showAuthorList(authorNumber) {
     var addTest = "";
     // 判断是否是数字,若为数字则显示作者表单，否则提示
     if (isNaN(authorNumber) == false) {
-        var addText = "<div class='table-responsive'><table width='100%' class='table table-hover'><thead><tr><th>作者排名</th><th>作者姓名</th><th>作者类型</th><th>工号/学号</th><th>作者单位</th></tr></thead>";
+        var addText = "<div class='table-responsive'><table width='100%' class='table table-hover'><thead><tr><th>作者排名</th><th>作者姓名</th><th>作者类型</th><th>是否通信作者</th><th>工号/学号</th><th>作者单位</th></tr></thead>";
         for (var i = 0; i < authorNumber; i++) {
             // 作者排名
             var authorRank = (i + 1);
@@ -167,6 +191,17 @@ function showAuthorList(authorNumber) {
                 + authorRank
                 + "' value='4' onclick='showAuthorIDByAuthorType(4,"
                 + authorRank + ");' />本科生</label>";
+            //是否通讯作者
+            var authorIsCorrespondent = "<label class='radio-inline'style='margin-top:5px'><input type='radio' name='authorIsCorrespondent"
+                + authorRank
+                + "'  id='authorIsCorrespondent"
+                + authorRank
+                + "' value='1'/>是</label>";
+            var authorIsCorrespondent = authorIsCorrespondent + "<label class='radio-inline'style='margin-top:5px'><input type='radio' name='authorIsCorrespondent"
+                + authorRank
+                + "'  id='authorIsCorrespondent"
+                + authorRank
+                + "' value='0' checked='checked'/>否</label>";
             // 作者工号/学号（外校类型不填）
             var authorID = "<input type='text' name='authorID" + authorRank
                 + "' id='AuthorID" + authorRank + "' class='form-control'>";
@@ -197,7 +232,7 @@ function showAuthorList(authorNumber) {
             }
             addText = addText + author_id + "<tr><td>" + authorRank
                 + "</td><td>" + authorName + "</td><td>" + authorType1
-                + authorType2 + authorType3 + authorType4 + "</td><td>"
+                + authorType2 + authorType3 + authorType4 + "</td><td>" + authorIsCorrespondent + "</td><td>"
                 + authorID + "</td><td>" + authorOffice + "</td><td>"
                 + authorMoveButton + "</td></tr>";
         }
@@ -226,12 +261,25 @@ function showAuthorInputList(paperproxy_id) {
                     authorsID.push(authorResult[i].author_id);
                     $("input#AuthorName" + authorResult[i].author_rank).val(
                         authorResult[i].author_name);
+                    switch (authorResult[i].author_is_correspondent) {
+                        case 0:
+                            $("input#authorIsCorrespondent"
+                                + authorResult[i].author_rank
+                                + "[value='0']").attr("checked", true);
+                            break;
+                        case 1:
+                            $("input#authorIsCorrespondent"
+                                + authorResult[i].author_rank
+                                + "[value='1']").attr("checked", true);
+                            break;
+                    }
                     switch (authorResult[i].author_type) {
                         case 1:
                             $("input#AuthorID" + authorResult[i].author_rank).val(
                                 authorResult[i].author_no);
                             $("input#AuthorOffice" + authorResult[i].author_rank)
                                 .val(authorResult[i].author_office);
+                            $("input#AuthorOffice" + authorResult[i].author_rank).attr("disabled", true);
                             break;
                         case 2:
                             $(
