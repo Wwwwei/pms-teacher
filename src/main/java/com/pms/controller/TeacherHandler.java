@@ -15,12 +15,15 @@ import com.pms.entity.Paper;
 import com.pms.entity.Teacher;
 import com.pms.util.CryptoUtil;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -183,27 +186,28 @@ public class TeacherHandler {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping("/download")
 	public String downloadFile(@RequestParam("fileType") String fileType, @RequestParam("paper_id") String paper_id,
-							   HttpServletRequest request, HttpServletResponse response) {
+							   HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int fType = Integer.parseInt(fileType);
 		int paperId = Integer.parseInt(paper_id);
 		String fileName = null;
 		if (fType == 1) {
-			fileName = paper_id+"_1.doc";
+			fileName = paper_id+"_1";
 		}
 		if (fType == 2) {
-			fileName = paper_id+"_2.doc";
+			fileName = paper_id+"_2";
 		}
 		if (fType == 3) {
-			fileName = paper_id+"_3.doc";
+			fileName = paper_id+"_3";
 		}
 		if (fType == 4) {
-			fileName = paper_id+"_4.doc";
+			fileName = paper_id+"_4";
 		}
 		if (fType == 5) {
-			fileName = paper_id+"_5.doc";
+			fileName = paper_id+"_5";
 		}
 		System.out.println(fType + "---");
 		com.pms.entity.File f = fileService.findFileByPaperIdAndFileType(paperId, fType);
@@ -211,9 +215,23 @@ public class TeacherHandler {
 		if (f != null) {
 			String realPath = f.getFile_url();
 			File file = new File(realPath);
+			Path path = Paths.get(realPath);
+			String contentType = Files.probeContentType(path);
+			if(contentType!=null)
+			{
+				if(contentType.contains("pdf"))
+			   {
+				fileName+=".pdf";
+			   }
+			}
+			if(contentType==null)
+			{
+				fileName+=".doc";
+			}
 
 			if (file.exists()) {
 				response.setContentType("application/force-download");// 设置强制下载不打开
+			   response.setContentType("multipart/form-data");
 				response.addHeader("Content-Disposition", "attachment;fileName=" +fileName);// 设置文件名
 				byte[] buffer = new byte[1024];
 				FileInputStream fis = null;
