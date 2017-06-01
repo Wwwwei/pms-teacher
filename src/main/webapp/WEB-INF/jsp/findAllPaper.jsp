@@ -25,6 +25,12 @@
     // 	return false;
     // };
     window.onload = function () {
+    	
+    	 var teacher_id_value = "${teacher_id}";
+         $("#teacher_id").val(teacher_id_value);
+    	
+//         var teacher_id=document.getElementById("teacher_id");
+//         document.getElementById('autuor').innerHTML= "作者:"+teacher_id.options[teacher_id.selectedIndex].innerHTML;
 
         var journals_conference_id_value = "${journals_conference_id}";
         $("#journals_conference_id").val(journals_conference_id_value);
@@ -41,12 +47,9 @@
         var paper_time_order_value = "${paper_time_order}";
         $("#paper_time_order").val(paper_time_order_value);
 
-        var teacher_id_value = "${teacher_id}";
-        $("#teacher_id").val(teacher_id_value);
-
         var teacher_sex_value = "${teacher_sex}";
         $("#teacher_sex").val(teacher_sex_value);
-
+        
         var teacher_age_min_value = "${teacher_age_min}";
         $("#teacher_age_min").val(teacher_age_min_value);
 
@@ -82,6 +85,110 @@
 
         var teacher_institute_value = "${institute_id}";
         $("#institute_id").val(teacher_institute_value);
+        
+         var teacher_id=document.getElementById("teacher_id");
+         if(teacher_id.value!=0)
+        {
+        	 document.getElementById('autuor').innerHTML= "作者:"+teacher_id.options[teacher_id.selectedIndex].innerHTML;
+        }
+        
+        var teacher_sex=document.getElementById("teacher_sex");
+        if(teacher_sex.value!=-1)
+        {
+        document.getElementById('sex').innerHTML= "性别:"+teacher_sex.options[teacher_sex.selectedIndex].innerHTML;
+   
+        }        
+        var journals_conference_IF_min = parseInt($("#journals_conference_IF_min").val());
+        var journals_conference_IF_max = parseInt($("#journals_conference_IF_max").val());
+        if(journals_conference_IF_min!=0)
+        {
+        document.getElementById('journals_conference_IF').innerHTML= "影响因子:"+journals_conference_IF_min+"-"+journals_conference_IF_max;
+   
+        }
+        if(journals_conference_IF_max!=1000)
+        {
+        document.getElementById('journals_conference_IF').innerHTML= "影响因子:"+journals_conference_IF_min+"-"+journals_conference_IF_max;
+   
+        }
+        var teacher_age_min = parseInt($("#teacher_age_min").val());
+        var teacher_age_max = parseInt($("#teacher_age_max").val());
+        if(teacher_age_min!=0)
+        {
+        document.getElementById('age').innerHTML= "年龄:"+teacher_age_min+"-"+teacher_age_max;
+   
+        }
+        if(teacher_age_max!=100)
+        {
+        document.getElementById('age').innerHTML= "年龄:"+teacher_age_min+"-"+teacher_age_max;
+   
+        }
+        var paper_includedType=document.getElementById("paper_includedType");
+        if(paper_includedType.value!="ALL")
+        {
+        document.getElementById('paperIncludedType').innerHTML= "收录类型:"+paper_includedType.options[paper_includedType.selectedIndex].innerHTML;
+   
+        } 
+        paper_citations_min
+        var paper_citations_min = parseFloat($("#paper_citations_min").val());
+        var paper_citations_max = parseFloat($("#paper_citations_max").val());
+        if(paper_citations_min!=0)
+        {
+        document.getElementById('paperCitations').innerHTML= "总引:"+paper_citations_min+"-"+paper_citations_max;
+   
+        }
+        if(paper_citations_max!=100000)
+        {
+        document.getElementById('paperCitations').innerHTML= "总引:"+paper_citations_min+"-"+paper_citations_max;
+   
+        }
+        var teachingProfession_id=document.getElementById("teachingProfession_id");
+        if(teachingProfession_id.value!=0)
+        {
+        document.getElementById('teachingProfession').innerHTML= "专业:"+teachingProfession_id.options[teachingProfession_id.selectedIndex].innerHTML;
+   
+        }
+        var title_id=document.getElementById("title_id");
+        if(title_id.value!=0)
+        {
+        document.getElementById('title').innerHTML= "职称:"+title_id.options[title_id.selectedIndex].innerHTML;
+   
+        }
+        var journals_conference_flag=document.getElementById("journals_conference_flag");
+        if(journals_conference_flag.value!=-1)
+        {
+        document.getElementById('journals_conference').innerHTML= "论文类型:"+journals_conference_flag.options[journals_conference_flag.selectedIndex].innerHTML;
+   
+        }
+        var journals_conference_id=document.getElementById("journals_conference_id");
+        if(journals_conference_id.value!=0)
+        {
+        document.getElementById('journalsConferenceId').innerHTML= "论文等级:"+journals_conference_id.options[journals_conference_id.selectedIndex].innerHTML;
+   
+        }
+        var paper_time=document.getElementById("paper_time");
+        if(paper_time.value!="ALL")
+        {
+        document.getElementById('papertime').innerHTML= "发表年月:"+paper_time.options[paper_time.selectedIndex].innerHTML;
+   
+        }
+        var paper_citations_others_min = parseFloat($("#paper_citations_others_min").val());
+        var paper_citations_others_max = parseFloat($("#paper_citations_others_max").val());
+        if(paper_citations_others_min!=0)
+        {
+        document.getElementById('paperCitationOthers').innerHTML= "他引:"+paper_citations_others_min+"-"+paper_citations_others_max;
+   
+        }
+        if(paper_citations_others_max!=100000)
+        {
+        document.getElementById('paperCitationOthers').innerHTML= "他引:"+paper_citations_others_min+"-"+paper_citations_others_max;
+   
+        }
+        var institute_id=document.getElementById("institute_id");
+        if(institute_id.value!=0)
+        {
+        document.getElementById('institute').innerHTML= "部门:"+institute_id.options[institute_id.selectedIndex].innerHTML;
+   
+        }
     }
     function clicke() {
         var tex = document.getElementById("sele");
@@ -91,8 +198,8 @@
             tex.value = '打开筛选';
     }
     function check() {
-        var teacher_age_min = $("#teacher_age_min").val();
-        var teacher_age_max = $("#teacher_age_max").val();
+        var teacher_age_min = parseInt($("#teacher_age_min").val());
+        var teacher_age_max = parseInt($("#teacher_age_max").val());
         if (teacher_age_min < 0 || teacher_age_min > 100
                 || teacher_age_max < 20 ||
                 teacher_age_max > 100
@@ -101,8 +208,8 @@
             return false;
         }
 
-        var journals_conference_IF_min = $("#journals_conference_IF_min").val();
-        var journals_conference_IF_max = $("#journals_conference_IF_max").val();
+        var journals_conference_IF_min = parseFloat($("#journals_conference_IF_min").val());
+        var journals_conference_IF_max = parseFloat($("#journals_conference_IF_max").val());
         if (journals_conference_IF_min < 0 || journals_conference_IF_min > 1000) {
             alert("影响因子范围输入错误，请重新输入！");
             return false;
@@ -116,8 +223,8 @@
             }
         }
 
-        var paper_citations_min = $("#paper_citations_min").val();
-        var paper_citations_max = $("#paper_citations_max").val();
+        var paper_citations_min = parseFloat($("#paper_citations_min").val());
+        var paper_citations_max = parseFloat($("#paper_citations_max").val());
         if (paper_citations_min < 0 || paper_citations_min > 100000) {
             alert("论文总引范围输入错误，请重新输入！");
             return false;
@@ -132,8 +239,8 @@
             }
         }
 
-        var paper_citations_others_min = $("#paper_citations_others_min").val();
-        var paper_citations_others_max = $("#paper_citations_others_max").val();
+        var paper_citations_others_min = parseFloat($("#paper_citations_others_min").val());
+        var paper_citations_others_max = parseFloat($("#paper_citations_others_max").val());
         if (paper_citations_others_min < 0 || paper_citations_others_min > 100000) {
             alert("论文他引范围输入错误，请重新输入！");
             return false;
@@ -143,11 +250,12 @@
             if (paper_citations_others_max < 0 ||
                     paper_citations_others_max > 100000
                     || paper_citations_others_min > paper_citations_others_max) {
-                alert("论文总引范围输入错误，请重新输入！");
+                alert("论文他引范围输入错误，请重新输入！");
                 return false;
             }
         }
     }
+    
 </script>
 <style>
     .jumbotron {
@@ -162,6 +270,16 @@
         /*     text */
     }
 </style>
+
+<style type="text/css">
+
+h1 {display : inline}
+
+h2 { display : inline}
+
+h5 { display : inline}
+
+</style> 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -251,7 +369,20 @@
       onsubmit="return check();">
     <div class="jumbotron">
         <div class="container">
-            <h2>论文检索</h2>
+            <h2 >论文检索   </h2>
+            <h5 id="autuor"></h5>
+            <h5 id="sex"></h5>
+            <h5 id="age"></h5>
+             <h5 id="journals_conference_IF"></h5>
+            <h5 id="paperIncludedType"></h5>
+            <h5 id="paperCitations"></h5>
+            <h5 id="teachingProfession"></h5>
+            <h5 id="title"></h5>
+            <h5 id="journals_conference"></h5>
+            <h5 id="journalsConferenceId"></h5>
+            <h5 id="papertime"></h5>
+            <h5 id="paperCitationOthers"></h5>
+            <h5 id="institute"></h5>
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-primary"
@@ -259,7 +390,9 @@
                         <div class="panel-heading">
                             <table width="100%">
                                 <tr>
-                                    <td width="85%">查询结果筛选</td>
+                                    <td width="85%">查询结果筛选
+                                    </td>
+                                    
                                     <td style="text-align: right;"><input
                                             class="btn btn-primary" value="打开筛选" type="button"
                                             onClick="clicke()" id="sele" data-toggle="collapse"
@@ -467,6 +600,17 @@
 											</c:forEach>
 										</select>
 									</div>
+<!-- 								<div class="col-md-1"> -->
+<!-- 									<label>是否通信作者</label> -->
+<!--                                 </div> -->
+<!-- 									<div class="col-md-5"> -->
+<!-- 										<select id="author_is_correspondent" name="author_is_correspondent" -->
+<!-- 											class="form-control"> -->
+<!-- 										 <option value="-1" selected="selected">----请选择----</option> -->
+<!--                                         <option value="0">否</option> -->
+<!--                                         <option value="1">是</option> -->
+<!--                                     </select> -->
+<!-- 									</div> -->
 									<div class="col-md-12">&nbsp;</div>
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary btn-lg">查询</button>
@@ -489,7 +633,7 @@
     <!--查询结果显示开始-->
     <div class="container">
         <blockquote>
-            <span> 查询结果  </span>
+            <span> 查询结果 </span>
             <span style="margin-right:900px;">		</span>
             <input id="exportLocation" type="hidden" name="exportLocation" value="${sessionScope.exportLocation}"/>
             <span><a href="exportPaper.do">导出论文</a></span>
