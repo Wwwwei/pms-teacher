@@ -210,7 +210,7 @@
                                 <label class="col-md-1 control-label">发表年月</label>
                                 <div class="col-md-5">
                                     <input type="date" id="time" name="paper_time"
-                                           disabled="false" class="form-control">
+                                           disabled="false"  placeholder="请按照格式输入:年-月-日,例如:2017-06-05" class="form-control">
                                 </div>
                             </div>
                             <div class="hidden-lg hidden-md">
