@@ -41,6 +41,7 @@
                 property="paper_journals_conference_isZjut100" />
         <result column="paper_journals_conference_is_other"
                 property="paper_journals_conference_isOther" />
+        <result column="paper_author_is_correspondent" property="paper_author_is_correspondent"/>
         <association property="paper_journals_conference_ZKY"
                      column="paper_journals_conference_zky_id" select="com.pms.dao.JournalsConferenceMapper.selectById" />
         <association property="paper_journals_conference_JCR"
@@ -139,6 +140,7 @@
         <result column="paperproxy_journals_conference_custom" property="paper_journals_conference_CUSTOM"/>
         <result column="paperproxy_journals_conference_is_zjut100" property="paper_journals_conference_isZjut100"/>
         <result column="paperproxy_journals_conference_is_other" property="paper_journals_conference_isOther"/>
+        <result column="paperproxy_author_is_correspondent" property="paper_author_is_correspondent"/>
         <association property="paper_journals_conference_ZKY"
                      column="paperproxy_journals_conference_zky_id"
                      select="com.pms.dao.JournalsConferenceMapper.selectById"/>
