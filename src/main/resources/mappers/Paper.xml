@@ -51,6 +51,7 @@
 			<if test="teachingProfession_id!=null"> and t.teacher_teachingProfession_id=#{teachingProfession_id}</if>
 			<if test="title_id!=null"> and t.teacher_title_id=#{title_id}</if>
 			<if test="teacher_sex!=null"> and t.teacher_sex=#{teacher_sex}</if>
+			<if test="paper_author_is_correspondent!=null">and p.paper_author_is_correspondent=#{paper_author_is_correspondent}</if>
 			<if test="journals_conference_IF_min!=null"> and p.paper_if &gt;=
 				#{journals_conference_IF_min}
 			</if>

@@ -86,6 +86,9 @@
         var teacher_institute_value = "${institute_id}";
         $("#institute_id").val(teacher_institute_value);
         
+        var paper_author_is_correspondent = "${paper_author_is_correspondent}";
+        $("#paper_author_is_correspondent").val(paper_author_is_correspondent);
+        
          var teacher_id=document.getElementById("teacher_id");
          if(teacher_id.value!=0)
         {
@@ -188,6 +191,11 @@
         {
         document.getElementById('institute').innerHTML= "部门:"+institute_id.options[institute_id.selectedIndex].innerHTML;
    
+        }
+        var paper_author_is_correspondent=document.getElementById("paper_author_is_correspondent");
+        if(paper_author_is_correspondent.value!=-1)
+        {
+        	document.getElementById('is_correspondent').innerHTML= "是否通信作者:"+paper_author_is_correspondent.options[paper_author_is_correspondent.selectedIndex].innerHTML;
         }
     }
     function clicke() {
@@ -383,6 +391,7 @@ h5 { display : inline}
             <h5 id="papertime"></h5>
             <h5 id="paperCitationOthers"></h5>
             <h5 id="institute"></h5>
+            <h5 id="is_correspondent"></h5>
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-primary"
@@ -600,17 +609,17 @@ h5 { display : inline}
 											</c:forEach>
 										</select>
 									</div>
-<!-- 								<div class="col-md-1"> -->
-<!-- 									<label>是否通信作者</label> -->
-<!--                                 </div> -->
-<!-- 									<div class="col-md-5"> -->
-<!-- 										<select id="author_is_correspondent" name="author_is_correspondent" -->
-<!-- 											class="form-control"> -->
-<!-- 										 <option value="-1" selected="selected">----请选择----</option> -->
-<!--                                         <option value="0">否</option> -->
-<!--                                         <option value="1">是</option> -->
-<!--                                     </select> -->
-<!-- 									</div> -->
+								<div class="col-md-1">
+									<label>是否通信作者</label>
+                                </div>
+									<div class="col-md-5">
+										<select id="paper_author_is_correspondent" name="paper_author_is_correspondent"
+											class="form-control">
+										 <option value="-1" selected="selected">----请选择----</option>
+                                        <option value="0">否</option>
+                                        <option value="1">是</option>
+                                    </select>
+									</div>
 									<div class="col-md-12">&nbsp;</div>
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary btn-lg">查询</button>
