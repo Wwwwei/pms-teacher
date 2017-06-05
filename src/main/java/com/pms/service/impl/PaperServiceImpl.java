@@ -65,13 +65,13 @@ public class PaperServiceImpl implements PaperService {
 	public List<Paper> findAllPaper(int journals_conference_id, String paper_includedType, String paper_time,
 									int journals_conference_flag, int teacher_id, int teacher_sex, int teacher_age_min, int teacher_age_max,
 									double journals_conference_IF_min, double journals_conference_IF_max, int paper_citations_min,
-									int paper_citations_max, int paper_citations_others_min, int paper_citations_others_max, int institute_id,int teachingProfession_id,int title_id,String column,
+									int paper_citations_max, int paper_citations_others_min, int paper_citations_others_max, int institute_id,int teachingProfession_id,int title_id,int paper_author_is_correspondent,String column,
 									int order, Page page) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		putParams(params, journals_conference_id, paper_includedType, paper_time, journals_conference_flag, teacher_id,
 				teacher_sex, teacher_age_min, teacher_age_max, journals_conference_IF_min, journals_conference_IF_max,
 				paper_citations_min, paper_citations_max, paper_citations_others_min, paper_citations_others_max,
-				institute_id,teachingProfession_id,title_id,column, order, page);
+				institute_id,teachingProfession_id,title_id,paper_author_is_correspondent,column, order, page);
 		return paperMapper.findAllPaperByPage(params);
 	}
 
@@ -94,7 +94,7 @@ public class PaperServiceImpl implements PaperService {
 						   String paper_time, int journals_conference_flag, int teacher_id, int teacher_sex, int teacher_age_min,
 						   int teacher_age_max, double journals_conference_IF_min, double journals_conference_IF_max,
 						   int paper_citations_min, int paper_citations_max, int paper_citations_others_min,
-						   int paper_citations_others_max, int institute_id,int teachingProfession_id,int title_id,String column, int order, Page page) {
+						   int paper_citations_others_max, int institute_id,int teachingProfession_id,int title_id,int paper_author_is_correspondent,String column, int order, Page page) {
 		if (0 < journals_conference_id && journals_conference_id < 50) {
 			if (0 < journals_conference_id && journals_conference_id <= 3)
 				params.put("journals_conference_ZKY_id", journals_conference_id);
@@ -126,6 +126,8 @@ public class PaperServiceImpl implements PaperService {
 		}
 		if (teacher_sex != -1)
 			params.put("teacher_sex", teacher_sex);
+		if (teacher_id > 0&&paper_author_is_correspondent != -1)
+			params.put("paper_author_is_correspondent", paper_author_is_correspondent);
 		if (teacher_age_min != 0) {
 			String teacher_birth_max = DateUtil.get_birth(teacher_age_min);
 			params.put("teacher_birth_max", teacher_birth_max);

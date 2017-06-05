@@ -147,6 +147,7 @@ public class PaperHandler {
 		int teachingProfession_id=(int) session.getAttribute("teachingProfession_id");
 		int title_id = (int) session.getAttribute("title_id");
 		int teacher_sex = (int) session.getAttribute("teacher_sex");
+		int paper_author_is_correspondent = (int) session.getAttribute("paper_author_is_correspondent");
 		int teacher_age_min = (int) session.getAttribute("teacher_age_min");
 		int teacher_age_max = (int) session.getAttribute("teacher_age_max");
 		double journals_conference_IF_min = (double) session.getAttribute("journals_conference_IF_min");
@@ -158,7 +159,7 @@ public class PaperHandler {
 		List<Paper> papers = paperService.findAllPaper(journals_conference_id, paper_includedType, paper_time,
 				journals_conference_flag, teacher_id, teacher_sex, teacher_age_min, teacher_age_max,
 				journals_conference_IF_min, journals_conference_IF_max, paper_citations_min, paper_citations_max,
-				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,column, order, page);
+				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,paper_author_is_correspondent,column, order, page);
 		session.setAttribute("papers", papers);
 		session.setAttribute("page", page);
 		return FIND_RESULT;
@@ -223,7 +224,7 @@ public class PaperHandler {
 		Page page = new Page();
 		page.setCurrentPage(1);
 		List<Paper> papers = paperService.findAllPaper(0, "ALL", "ALL", -1, 0, -1, 0, 100, 0, 1000.0, 0, 100000, 0,
-				100000, 0, 0,0,"ALL", 1, page);
+				100000, 0, 0,0,-1,"ALL", 1, page);
 		List<JournalsConference> journals_Conferences = journalsConferenceService.findAllJournals_Conference();
 		List<Teacher> teachers = teacherService.findAllTeacher();
 		List<Institute> institutes = instituteService.getAllInstitute();
@@ -297,6 +298,7 @@ public class PaperHandler {
 		int teachingProfession_id=(int) session.getAttribute("teachingProfession_id");
 		int title_id = (int) session.getAttribute("title_id");
 		int teacher_sex = (int) session.getAttribute("teacher_sex");
+		int paper_author_is_correspondent=(int) session.getAttribute("paper_author_is_correspondent");
 		int teacher_age_min = (int) session.getAttribute("teacher_age_min");
 		int teacher_age_max = (int) session.getAttribute("teacher_age_max");
 		double journals_conference_IF_min = (double) session.getAttribute("journals_conference_IF_min");
@@ -308,7 +310,7 @@ public class PaperHandler {
 		List<Paper> papers = paperService.findAllPaper(journals_conference_id, paper_includedType, paper_time,
 				journals_conference_flag, teacher_id, teacher_sex, teacher_age_min, teacher_age_max,
 				journals_conference_IF_min, journals_conference_IF_max, paper_citations_min, paper_citations_max,
-				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,column, order, page);
+				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,paper_author_is_correspondent,column, order, page);
 		session.setAttribute("papers", papers);
 		session.setAttribute("page", page);
 		System.out.println(page.getCurrentPage()+"==============");
@@ -345,7 +347,8 @@ public class PaperHandler {
 							   @RequestParam(value = "paper_citations_others_max", required = false, defaultValue = "100000") int paper_citations_others_max,
 							   @RequestParam(value = "institute_id", required = false, defaultValue = "0") int institute_id,
 							   @RequestParam(value = "teachingProfession_id", required = false, defaultValue = "0") int teachingProfession_id,
-							   @RequestParam(value = "title_id", required = false, defaultValue = "0") int title_id){
+							   @RequestParam(value = "title_id", required = false, defaultValue = "0") int title_id,
+							   @RequestParam(value = "paper_author_is_correspondent", required = false, defaultValue = "-1") int paper_author_is_correspondent){
 		Page page = new Page();
 		page.setCurrentPage(1);
 		if(session.getAttribute("column")==null){
@@ -370,10 +373,11 @@ public class PaperHandler {
 		session.setAttribute("institute_id", institute_id);
 		session.setAttribute("teachingProfession_id", teachingProfession_id);
 		session.setAttribute("title_id", title_id);
+		session.setAttribute("paper_author_is_correspondent", paper_author_is_correspondent);
 		List<Paper> papers = paperService.findAllPaper(journals_conference_id, paper_includedType, paper_time,
 				journals_conference_flag, teacher_id, teacher_sex, teacher_age_min, teacher_age_max,
 				journals_conference_IF_min, journals_conference_IF_max, paper_citations_min, paper_citations_max,
-				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,column, order, page);
+				paper_citations_others_min, paper_citations_others_max, institute_id,teachingProfession_id,title_id,paper_author_is_correspondent,column, order, page);
 		session.setAttribute("papers", papers);
 		session.setAttribute("page", page);
 		return FIND_ALL_RESULT;

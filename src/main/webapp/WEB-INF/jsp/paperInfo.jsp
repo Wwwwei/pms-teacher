@@ -130,6 +130,15 @@
         <dd>${paper.paper_teacher.teacher_name}</dd>
     </dl>
     <dl class="dl-horizontal text-overflow">
+        <dt>是否通信作者</dt>
+         <c:if test="${paper.paper_author_is_correspondent==1}">
+         <dd>是</dd>
+         </c:if>
+         <c:if test="${paper.paper_author_is_correspondent==0}">
+         <dd>否</dd>
+         </c:if>
+    </dl>
+    <dl class="dl-horizontal text-overflow">
         <dt>录入教师排名</dt>
         <dd>第${paper.paper_rank}名，共${paper.paper_authorNum}名</dd>
     </dl>
