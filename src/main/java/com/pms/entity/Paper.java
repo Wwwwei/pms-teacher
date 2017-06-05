@@ -37,6 +37,7 @@ public class Paper {
     private String paper_journals_conference_CUSTOM;//自定义期刊会议
     private int paper_journals_conference_isZjut100 = 0; // 是否zjut100期刊论文(0:不是;1:是)
     private int paper_journals_conference_isOther = 1;// 是否勾选期刊会议其他(0:表示期刊会议为其他，1:表示期刊会议为存在)
+    private int paper_author_is_correspondent = 0; //录入者是否是通讯作者
     //    private String paper_location_ZKY;// 论文所在会议或期刊的具体位置(包括页码，期刊号等)对弈ZKY期刊会议
 //    private String paper_location_JCR;// 论文所在会议或期刊的具体位置(包括页码，期刊号等)对应JCR期刊会议
 //    private String paper_location_CCF;// 论文所在会议或期刊的具体位置(包括页码，期刊号等)对弈CFF期刊会议
@@ -295,5 +296,13 @@ public class Paper {
 
     public void setPaper_publishType(Integer paper_publishType) {
         this.paper_publishType = paper_publishType;
+    }
+
+    public int getPaper_author_is_correspondent() {
+        return paper_author_is_correspondent;
+    }
+
+    public void setPaper_author_is_correspondent(int paper_author_is_correspondent) {
+        this.paper_author_is_correspondent = paper_author_is_correspondent;
     }
 }

@@ -187,19 +187,20 @@ public class PaperProxyHandler {
         }
         */
 //        System.out.println("\n" + JSON.toJSONString(paper));
+        paper.setPaper_author_is_correspondent(Integer.parseInt(request.getParameter("authorIsCorrespondent" + paper.getPaper_rank())));
         if (!(paperProxyService.findPaperProxyByName(paper.getPaper_name()))) {
             paperProxyService.createPaperProxy(paper);
             // System.out.println(paper.getPaper_teacher().getTeacher_id() + "----------------------------");
             // authorProxy处理
             //	List<AuthorProxy> authors = new ArrayList();
             for (int i = 1; i <= paper.getPaper_authorNum(); i++) {
-                // 输出信息====================================================
-                System.out.println("=========");
-                System.out.println(request.getParameter("authorName" + i));
-                System.out.println(request.getParameter("authorID" + i));
-                System.out.println(request.getParameter("authorOffice" + i));
-                System.out.println(request.getParameter("authorType" + i));
-                // ===========================================================
+//                // 输出信息====================================================
+//                System.out.println("=========");
+//                System.out.println(request.getParameter("authorName" + i));
+//                System.out.println(request.getParameter("authorID" + i));
+//                System.out.println(request.getParameter("authorOffice" + i));
+//                System.out.println(request.getParameter("authorType" + i));
+//                // ===========================================================
                 AuthorProxy authorProxy = new AuthorProxy();
                 authorProxy.setAuthor_name(request.getParameter("authorName" + i));
                 authorProxy.setAuthor_rank(i);
@@ -373,6 +374,7 @@ public class PaperProxyHandler {
         int ex_authorNum = paperProxyService.findPaperProxyById(paper.getPaper_id()).getPaper_authorNum();
         System.out.println("=========更新前作者人数：" + ex_authorNum);
         System.out.println("=========更新后作者人数：" + paper.getPaper_authorNum());
+        paper.setPaper_author_is_correspondent(Integer.parseInt(request.getParameter("authorIsCorrespondent" + paper.getPaper_rank())));
         paperProxyService.updatePaperProxy(paper);
 //		List<AuthorProxy> authors = new ArrayList();
         // 作者表信息更新或者增加
